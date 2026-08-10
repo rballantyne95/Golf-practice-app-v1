@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Summary - Golf Practice</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <h1>Session Summary</h1>
+
+    <div class="summary-meta">
+      <strong id="summaryDate">-</strong>
+      <span id="summaryTotalBalls">0 balls hit</span>
+    </div>
+
+    <section>
+      <h2>Sets</h2>
+      <ul class="summary-sets" id="summarySets"></ul>
+    </section>
+
+    <section>
+      <h2>Swing Thoughts</h2>
+      <div id="summaryThoughts"></div>
+    </section>
+
+    <button type="button" id="saveSessionBtn" class="primary-button">Save Session</button>
+  </div>
+
+  <script src="storage.js"></script>
+  <script src="summary.js"></script>
+</body>
+</html>

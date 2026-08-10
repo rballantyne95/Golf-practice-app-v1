@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New Session - Golf Practice</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <h1>New Practice Session</h1>
+
+    <section>
+      <h2>How many balls?</h2>
+      <div class="stepper">
+        <button type="button" id="decBalls">&minus;</button>
+        <span class="stepper-value" id="totalBallsValue">25</span>
+        <button type="button" id="incBalls">+</button>
+      </div>
+    </section>
+
+    <section>
+      <h2>Build your sets</h2>
+      <div id="allocatedTracker" class="allocated-tracker">0 / 25 balls allocated</div>
+
+      <div class="ball-choice">
+        <button type="button" class="ball-option selected" data-balls="5">5 balls</button>
+        <button type="button" class="ball-option" data-balls="10">10 balls</button>
+      </div>
+      <input type="text" id="focusInput" placeholder="Focus, e.g. Start line">
+      <button type="button" id="addSetBtn" class="secondary-button" disabled>Add Set</button>
+
+      <ul class="sets-list" id="setsList"></ul>
+    </section>
+
+    <button type="button" id="beginSessionBtn" class="primary-button" disabled>Begin Practice</button>
+  </div>
+
+  <script src="storage.js"></script>
+  <script src="setup.js"></script>
+</body>
+</html>
