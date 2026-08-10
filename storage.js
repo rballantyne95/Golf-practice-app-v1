@@ -2,6 +2,8 @@
 
 const SESSIONS_KEY = "golfSessions";
 const DRAFT_KEY = "golfDraftSession";
+const SET_NAMES_KEY = "golfSetNames";
+const MAX_SET_NAMES = 8;
 
 function getSessions() {
   const raw = localStorage.getItem(SESSIONS_KEY);
@@ -23,6 +25,17 @@ function saveDraft(draft) {
 
 function clearDraft() {
   localStorage.removeItem(DRAFT_KEY);
+}
+
+function getSetNames() {
+  const raw = localStorage.getItem(SET_NAMES_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+function rememberSetName(name) {
+  const names = getSetNames().filter((n) => n.toLowerCase() !== name.toLowerCase());
+  names.unshift(name);
+  localStorage.setItem(SET_NAMES_KEY, JSON.stringify(names.slice(0, MAX_SET_NAMES)));
 }
 
 function formatDate(isoString) {

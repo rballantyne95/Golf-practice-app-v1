@@ -23,10 +23,13 @@
       <h2>Build your sets</h2>
       <div id="allocatedTracker" class="allocated-tracker">0 / 25 balls allocated</div>
 
-      <div class="ball-choice">
-        <button type="button" class="ball-option selected" data-balls="5">5 balls</button>
-        <button type="button" class="ball-option" data-balls="10">10 balls</button>
+      <div class="stepper">
+        <button type="button" id="decSetBalls">&minus;</button>
+        <span class="stepper-value" id="setBallsValue">5</span>
+        <button type="button" id="incSetBalls">+</button>
       </div>
+
+      <div id="recentNames" class="chip-row"></div>
       <input type="text" id="focusInput" placeholder="Focus, e.g. Start line">
       <button type="button" id="addSetBtn" class="secondary-button" disabled>Add Set</button>
 

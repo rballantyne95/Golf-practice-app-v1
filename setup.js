@@ -8,7 +8,10 @@ const totalBallsValueEl = document.getElementById("totalBallsValue");
 const decBallsBtn = document.getElementById("decBalls");
 const incBallsBtn = document.getElementById("incBalls");
 const allocatedTrackerEl = document.getElementById("allocatedTracker");
-const ballOptionBtns = document.querySelectorAll(".ball-option");
+const setBallsValueEl = document.getElementById("setBallsValue");
+const decSetBallsBtn = document.getElementById("decSetBalls");
+const incSetBallsBtn = document.getElementById("incSetBalls");
+const recentNamesEl = document.getElementById("recentNames");
 const focusInput = document.getElementById("focusInput");
 const addSetBtn = document.getElementById("addSetBtn");
 const setsListEl = document.getElementById("setsList");
@@ -16,6 +19,10 @@ const beginSessionBtn = document.getElementById("beginSessionBtn");
 
 function allocatedBalls() {
   return sets.reduce((sum, s) => sum + s.balls, 0);
+}
+
+function remainingBalls() {
+  return Math.max(0, totalBalls - allocatedBalls());
 }
 
 function renderTotalBalls() {
@@ -36,6 +43,23 @@ function renderAllocatedTracker() {
   }
 
   beginSessionBtn.disabled = !(allocated === totalBalls && sets.length > 0);
+  renderSetBallsStepper();
+}
+
+function renderSetBallsStepper() {
+  const remaining = remainingBalls();
+  selectedSetBalls = Math.min(selectedSetBalls, remaining);
+  if (selectedSetBalls < 5) {
+    selectedSetBalls = remaining >= 5 ? 5 : 0;
+  }
+
+  setBallsValueEl.textContent = selectedSetBalls;
+  decSetBallsBtn.disabled = selectedSetBalls <= 5;
+  incSetBallsBtn.disabled = selectedSetBalls >= remaining;
+
+  const canAddMore = remaining >= 5;
+  focusInput.disabled = !canAddMore;
+  updateAddSetBtnState();
 }
 
 function renderSetsList() {
@@ -50,8 +74,24 @@ function renderSetsList() {
   });
 }
 
+function renderRecentNames() {
+  const names = getSetNames();
+  recentNamesEl.innerHTML = "";
+  names.forEach((name) => {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.className = "chip";
+    chip.textContent = name;
+    chip.addEventListener("click", () => {
+      focusInput.value = name;
+      updateAddSetBtnState();
+    });
+    recentNamesEl.appendChild(chip);
+  });
+}
+
 function updateAddSetBtnState() {
-  addSetBtn.disabled = focusInput.value.trim().length === 0;
+  addSetBtn.disabled = focusInput.disabled || focusInput.value.trim().length === 0;
 }
 
 decBallsBtn.addEventListener("click", () => {
@@ -66,25 +106,32 @@ incBallsBtn.addEventListener("click", () => {
   renderTotalBalls();
 });
 
-ballOptionBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    ballOptionBtns.forEach((b) => b.classList.remove("selected"));
-    btn.classList.add("selected");
-    selectedSetBalls = Number(btn.dataset.balls);
-  });
+decSetBallsBtn.addEventListener("click", () => {
+  if (selectedSetBalls > 5) {
+    selectedSetBalls -= 5;
+    renderSetBallsStepper();
+  }
+});
+
+incSetBallsBtn.addEventListener("click", () => {
+  if (selectedSetBalls < remainingBalls()) {
+    selectedSetBalls += 5;
+    renderSetBallsStepper();
+  }
 });
 
 focusInput.addEventListener("input", updateAddSetBtnState);
 
 addSetBtn.addEventListener("click", () => {
   const focus = focusInput.value.trim();
-  if (!focus) return;
+  if (!focus || selectedSetBalls < 5) return;
 
   sets.push({ balls: selectedSetBalls, focus });
+  rememberSetName(focus);
   focusInput.value = "";
-  updateAddSetBtnState();
   renderSetsList();
   renderAllocatedTracker();
+  renderRecentNames();
 });
 
 setsListEl.addEventListener("click", (event) => {
@@ -111,3 +158,4 @@ beginSessionBtn.addEventListener("click", () => {
 
 renderTotalBalls();
 renderSetsList();
+renderRecentNames();
