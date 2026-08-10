@@ -1,5 +1,14 @@
 // Shared localStorage helpers used by every page.
 
+// If the browser restores this page from its back/forward cache (a frozen
+// snapshot from before the latest update), force a fresh load instead of
+// running stale JavaScript.
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) {
+    window.location.reload();
+  }
+});
+
 const SESSIONS_KEY = "golfSessions";
 const DRAFT_KEY = "golfDraftSession";
 const SET_NAMES_KEY = "golfSetNames";
