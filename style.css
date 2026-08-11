@@ -8,6 +8,7 @@
   --card-bg: #ffffff;
   --border: #e0e0e0;
   --amber: #b26a00;
+  --amber-light: #fbe8cc;
 
   /* Design System v2 (dark) — new token names so they can never collide
      with or override the legacy tokens above. Only rules scoped under a
@@ -609,6 +610,36 @@ ul.sessions-list li .session-date {
 ul.sessions-list li .session-meta {
   color: var(--muted);
   font-size: 0.92rem;
+}
+
+.session-flight-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.flight-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+.flight-badge.good {
+  background: var(--green-light);
+  border-color: var(--green);
+  color: var(--green-dark);
+}
+
+.flight-badge.miss {
+  background: var(--amber-light);
+  border-color: var(--amber);
+  color: var(--amber);
 }
 
 .back-link {

@@ -13,12 +13,11 @@ const BALL_FLIGHT_GROUPS = [
   { key: "direction", options: ["Push", "Pull", "Straight"], el: document.getElementById("directionGroup") },
   { key: "shape", options: ["Draw", "Slice", "Straight"], el: document.getElementById("shapeGroup") },
   { key: "contact", options: ["Fat", "Thin", "Crisp"], el: document.getElementById("contactGroup") },
-  { key: "finish", options: ["Right", "Left", "Straight"], el: document.getElementById("finishGroup") },
 ];
 
 let commitmentRating = null;
 let strikeQuality = null;
-const ballFlight = { direction: null, shape: null, contact: null, finish: null };
+const ballFlight = { direction: null, shape: null, contact: null };
 
 closeBtn.addEventListener("click", () => {
   clearDraft();
