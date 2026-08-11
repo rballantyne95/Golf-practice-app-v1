@@ -23,6 +23,8 @@ let commitmentRating = null;
 let strikeQuality = null;
 const ballFlight = { direction: null, shape: null, contact: null };
 let setRatings = [];
+let setClubs = [];
+let setFocuses = [];
 
 function renderScale(container, selected, onSelect) {
   container.innerHTML = "";
@@ -79,14 +81,47 @@ function renderSetRatings() {
 
     const title = document.createElement("div");
     title.className = "summary-set-title";
-    title.innerHTML = `Set ${index + 1}: ${ballsAndClubLabel(set)} &mdash; ${escapeHtml(set.focus)}`;
+    title.textContent = `Set ${index + 1}: ${set.balls} balls`;
+    block.appendChild(title);
+
+    const clubLabel = document.createElement("div");
+    clubLabel.className = "section-label";
+    clubLabel.textContent = "Club";
+    block.appendChild(clubLabel);
+
+    const clubPicker = document.createElement("div");
+    clubPicker.className = "club-grid";
+    block.appendChild(clubPicker);
+
+    function renderClub() {
+      renderClubPicker(clubPicker, setClubs[index], (value) => {
+        setClubs[index] = value;
+        renderClub();
+      });
+    }
+    renderClub();
+
+    const focusLabel = document.createElement("div");
+    focusLabel.className = "section-label";
+    focusLabel.textContent = "Drill/Activity";
+    block.appendChild(focusLabel);
+
+    const focusInput = document.createElement("input");
+    focusInput.type = "text";
+    focusInput.value = setFocuses[index];
+    focusInput.addEventListener("input", () => {
+      setFocuses[index] = focusInput.value;
+    });
+    block.appendChild(focusInput);
+
+    const ratingLabel = document.createElement("div");
+    ratingLabel.className = "section-label";
+    ratingLabel.textContent = "Rating";
+    block.appendChild(ratingLabel);
 
     const ratingRow = document.createElement("div");
     ratingRow.className = "rating-buttons";
-
-    block.appendChild(title);
     block.appendChild(ratingRow);
-    setRatingsListEl.appendChild(block);
 
     function renderRow() {
       renderGroup(ratingRow, ["Poor", "OK", "Good"], setRatings[index], (value) => {
@@ -95,6 +130,8 @@ function renderSetRatings() {
       });
     }
     renderRow();
+
+    setRatingsListEl.appendChild(block);
   });
 }
 
@@ -104,6 +141,8 @@ saveBtn.addEventListener("click", () => {
   session.ballFlight = { ...ballFlight };
   session.sets.forEach((set, index) => {
     set.rating = setRatings[index];
+    set.club = setClubs[index];
+    set.focus = setFocuses[index];
   });
   saveSessions(sessions);
   window.location.href = `session-detail.html?id=${encodeURIComponent(sessionId)}`;
@@ -117,6 +156,8 @@ if (session) {
   ballFlight.shape = (session.ballFlight && session.ballFlight.shape) || null;
   ballFlight.contact = (session.ballFlight && session.ballFlight.contact) || null;
   setRatings = session.sets.map((s) => s.rating);
+  setClubs = session.sets.map((s) => s.club || "");
+  setFocuses = session.sets.map((s) => s.focus || "");
 
   renderCommitment();
   renderStrike();

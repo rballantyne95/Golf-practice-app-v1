@@ -566,7 +566,15 @@ ul.sessions-list li .session-meta {
 }
 
 .set-rating-block {
+  padding-bottom: 20px;
   margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.set-rating-block:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
 }
 
 .set-rating-block .summary-set-title {
