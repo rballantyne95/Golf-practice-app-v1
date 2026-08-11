@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Create from Text - Golf Practice</title>
+<link rel="stylesheet" href="style.css?v=10">
+</head>
+<body>
+  <div class="app">
+    <a href="practice-start.html" class="back-link">&larr; Back</a>
+    <h1>Create from Text</h1>
+
+    <div class="hint-text">
+      Paste a session plan, one set per line, e.g. "Balls 1&ndash;20: description" or "20 balls: description".
+    </div>
+
+    <textarea id="sessionText" placeholder="Paste your session here&hellip;" rows="12"></textarea>
+    <div id="parseError" class="field-error hidden"></div>
+
+    <button type="button" id="parseBtn" class="primary-button">Parse Session</button>
+  </div>
+
+  <script src="storage.js?v=10"></script>
+  <script src="paste-session.js?v=10"></script>
+</body>
+</html>
