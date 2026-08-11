@@ -85,16 +85,31 @@ function allFocusAreas() {
   return [...BUILT_IN_FOCUS_AREAS, ...getCustomFocusAreas()];
 }
 
-function renderFocusAreaPicker(container, selectedFocus, onSelect) {
+const MAX_SESSION_FOCUSES = 3;
+
+function renderFocusAreaPicker(container, selectedFocuses, onToggle) {
   container.innerHTML = "";
+  const atMax = selectedFocuses.length >= MAX_SESSION_FOCUSES;
   allFocusAreas().forEach((area) => {
+    const isSelected = selectedFocuses.includes(area);
     const btn = document.createElement("button");
     btn.type = "button";
-    btn.className = "club-btn" + (area === selectedFocus ? " selected" : "");
+    btn.className = "club-btn" + (isSelected ? " selected" : "");
+    btn.disabled = !isSelected && atMax;
     btn.textContent = area;
-    btn.addEventListener("click", () => onSelect(area));
+    btn.addEventListener("click", () => onToggle(area));
     container.appendChild(btn);
   });
+}
+
+function normalizeFocusList(focus) {
+  if (Array.isArray(focus)) return focus;
+  return focus ? [focus] : [];
+}
+
+function formatFocusList(focus) {
+  const list = normalizeFocusList(focus);
+  return list.length ? list.join(", ") : "No focus set";
 }
 
 const CLUBS = ["58", "54", "50", "PW", "9i", "8i", "7i", "6i", "5i", "4h", "5w", "Dr"];

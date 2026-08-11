@@ -104,7 +104,11 @@ addThoughtBtn.addEventListener("click", () => {
 });
 
 if (draft && draft.sets && draft.sets.length > 0) {
-  sessionFocusBannerEl.textContent = draft.focus || "No focus set";
+  const focuses = normalizeFocusList(draft.focus);
+  const focusLabels = focuses.length ? focuses : ["No focus set"];
+  sessionFocusBannerEl.innerHTML = focusLabels
+    .map((f) => `<span class="focus-pill">${escapeHtml(f)}</span>`)
+    .join("");
   renderCurrentSet();
   renderThoughts();
 }

@@ -3,7 +3,7 @@ clearDraft();
 let totalBalls = 25;
 let numberOfSets = 3;
 let ballStep = 25;
-let selectedFocusArea = "";
+let selectedFocusAreas = [];
 
 const focusAreaPickerEl = document.getElementById("focusAreaPicker");
 const newFocusAreaInput = document.getElementById("newFocusArea");
@@ -25,8 +25,13 @@ closeBtn.addEventListener("click", () => {
 });
 
 function renderFocusArea() {
-  renderFocusAreaPicker(focusAreaPickerEl, selectedFocusArea, (value) => {
-    selectedFocusArea = value;
+  renderFocusAreaPicker(focusAreaPickerEl, selectedFocusAreas, (area) => {
+    const index = selectedFocusAreas.indexOf(area);
+    if (index >= 0) {
+      selectedFocusAreas.splice(index, 1);
+    } else if (selectedFocusAreas.length < MAX_SESSION_FOCUSES) {
+      selectedFocusAreas.push(area);
+    }
     focusAreaErrorEl.classList.add("hidden");
     renderFocusArea();
   });
@@ -37,7 +42,9 @@ addFocusAreaBtn.addEventListener("click", () => {
   if (!name) return;
 
   addCustomFocusArea(name);
-  selectedFocusArea = name;
+  if (!selectedFocusAreas.includes(name) && selectedFocusAreas.length < MAX_SESSION_FOCUSES) {
+    selectedFocusAreas.push(name);
+  }
   newFocusAreaInput.value = "";
   focusAreaErrorEl.classList.add("hidden");
   renderFocusArea();
@@ -98,13 +105,13 @@ incSetsBtn.addEventListener("click", () => {
 });
 
 continueBtn.addEventListener("click", () => {
-  if (!selectedFocusArea) {
+  if (selectedFocusAreas.length === 0) {
     focusAreaErrorEl.classList.remove("hidden");
     return;
   }
 
   const draft = {
-    focus: selectedFocusArea,
+    focus: selectedFocusAreas.slice(),
     totalBalls,
     numberOfSets,
     sets: [],

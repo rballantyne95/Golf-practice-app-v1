@@ -14,7 +14,7 @@ if (savedSessions.length === 0) {
     item.innerHTML = `
       <a href="saved-session-detail.html?id=${encodeURIComponent(session.id)}" class="session-link">
         <div class="session-date">${escapeHtml(session.name)}</div>
-        <div class="session-meta">${escapeHtml(session.focus || "No focus set")} &middot; ${session.totalBalls} balls · ${session.sets.length} sets</div>
+        <div class="session-meta">${escapeHtml(formatFocusList(session.focus))} &middot; ${session.totalBalls} balls · ${session.sets.length} sets</div>
         <div class="session-meta">${focuses}</div>
       </a>
     `;

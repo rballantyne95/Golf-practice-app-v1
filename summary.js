@@ -21,7 +21,7 @@ closeBtn.addEventListener("click", () => {
 
 function render() {
   summaryDateEl.textContent = formatDate(nowIso);
-  summaryFocusEl.textContent = draft.focus || "No focus set";
+  summaryFocusEl.textContent = formatFocusList(draft.focus);
   summaryTotalBallsEl.textContent = `${draft.totalBalls} balls hit`;
 
   summarySetsEl.innerHTML = "";
@@ -53,7 +53,7 @@ saveSessionBtn.addEventListener("click", () => {
   const session = {
     id: Date.now().toString(),
     date: nowIso,
-    focus: draft.focus || "",
+    focus: normalizeFocusList(draft.focus),
     totalBalls: draft.totalBalls,
     sets: draft.sets.map((s) => ({
       balls: s.balls,

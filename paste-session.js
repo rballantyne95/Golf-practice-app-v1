@@ -6,7 +6,7 @@ const focusAreaPickerEl = document.getElementById("focusAreaPicker");
 const newFocusAreaInput = document.getElementById("newFocusArea");
 const addFocusAreaBtn = document.getElementById("addFocusAreaBtn");
 
-let selectedFocusArea = "";
+let selectedFocusAreas = [];
 
 closeBtn.addEventListener("click", () => {
   clearDraft();
@@ -14,8 +14,13 @@ closeBtn.addEventListener("click", () => {
 });
 
 function renderFocusArea() {
-  renderFocusAreaPicker(focusAreaPickerEl, selectedFocusArea, (value) => {
-    selectedFocusArea = value;
+  renderFocusAreaPicker(focusAreaPickerEl, selectedFocusAreas, (area) => {
+    const index = selectedFocusAreas.indexOf(area);
+    if (index >= 0) {
+      selectedFocusAreas.splice(index, 1);
+    } else if (selectedFocusAreas.length < MAX_SESSION_FOCUSES) {
+      selectedFocusAreas.push(area);
+    }
     parseErrorEl.classList.add("hidden");
     renderFocusArea();
   });
@@ -26,7 +31,9 @@ addFocusAreaBtn.addEventListener("click", () => {
   if (!name) return;
 
   addCustomFocusArea(name);
-  selectedFocusArea = name;
+  if (!selectedFocusAreas.includes(name) && selectedFocusAreas.length < MAX_SESSION_FOCUSES) {
+    selectedFocusAreas.push(name);
+  }
   newFocusAreaInput.value = "";
   parseErrorEl.classList.add("hidden");
   renderFocusArea();
@@ -66,7 +73,7 @@ function parseSessionText(text) {
 }
 
 parseBtn.addEventListener("click", () => {
-  if (!selectedFocusArea) {
+  if (selectedFocusAreas.length === 0) {
     parseErrorEl.textContent = "Choose or add a focus for this session before parsing.";
     parseErrorEl.classList.remove("hidden");
     return;
@@ -85,7 +92,7 @@ parseBtn.addEventListener("click", () => {
 
   const totalBalls = sets.reduce((sum, s) => sum + s.balls, 0);
   const draft = {
-    focus: selectedFocusArea,
+    focus: selectedFocusAreas.slice(),
     totalBalls,
     sets: sets.map((s) => ({ balls: s.balls, focus: s.focus, club: "", rating: null, note: "" })),
   };

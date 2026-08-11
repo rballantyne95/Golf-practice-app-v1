@@ -17,7 +17,7 @@ const deleteBtn = document.getElementById("deleteBtn");
 
 function render() {
   summaryDateEl.textContent = formatDate(session.date);
-  summaryFocusEl.textContent = session.focus || "No focus set";
+  summaryFocusEl.textContent = formatFocusList(session.focus);
   summaryTotalBallsEl.textContent = `${session.totalBalls} balls hit`;
 
   summarySetsEl.innerHTML = "";
@@ -47,7 +47,7 @@ function render() {
 
 repeatSessionBtn.addEventListener("click", () => {
   const draft = {
-    focus: session.focus || "",
+    focus: normalizeFocusList(session.focus),
     totalBalls: session.totalBalls,
     sets: session.sets.map((s) => ({ balls: s.balls, focus: s.focus, club: s.club || "", rating: null, note: "" })),
     currentSetIndex: 0,

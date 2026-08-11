@@ -222,6 +222,11 @@ h2 {
   color: #fff;
 }
 
+.club-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .chip-row {
   display: flex;
   flex-wrap: wrap;
@@ -654,11 +659,20 @@ ul.sessions-list li .session-meta {
 }
 
 .practice-view .session-focus-banner {
-  display: inline-flex;
-  align-self: center;
-  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 8px;
   margin-bottom: var(--space-4);
+  padding: 0;
+  background: none;
+  border-radius: 0;
+}
+
+.practice-view .session-focus-banner .focus-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   padding: 6px 14px;
   background: var(--surface);
   border: 1px solid var(--border-subtle);
@@ -670,7 +684,7 @@ ul.sessions-list li .session-meta {
   letter-spacing: 0.08em;
 }
 
-.practice-view .session-focus-banner::before {
+.practice-view .session-focus-banner .focus-pill::before {
   content: "";
   width: 6px;
   height: 6px;

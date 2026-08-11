@@ -15,9 +15,14 @@ function sortedEntries(totals) {
 function aggregateBySessionFocus() {
   const totals = new Map();
   sessions.forEach((session) => {
-    const key = session.focus || "No Focus Set";
+    const focuses = normalizeFocusList(session.focus);
+    const keys = focuses.length ? focuses : ["No Focus Set"];
     const balls = session.sets.reduce((sum, s) => sum + s.balls, 0);
-    totals.set(key, (totals.get(key) || 0) + balls);
+    // A session can have up to 3 focuses - its balls count toward each one,
+    // so totals across focuses can add up to more than balls hit overall.
+    keys.forEach((key) => {
+      totals.set(key, (totals.get(key) || 0) + balls);
+    });
   });
   return sortedEntries(totals);
 }
