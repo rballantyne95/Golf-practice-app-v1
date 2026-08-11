@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Session Summary - Golf Practice</title>
+<title>Session Detail - Golf Practice</title>
 <link rel="stylesheet" href="style.css?v=6">
 </head>
 <body>
   <div class="app">
-    <h1>Session Summary</h1>
+    <a href="index.html" class="back-link">&larr; Back</a>
+    <h1>Session Detail</h1>
 
     <div class="summary-meta">
       <strong id="summaryDate">-</strong>
@@ -25,10 +26,10 @@
       <div id="summaryThoughts"></div>
     </section>
 
-    <button type="button" id="saveSessionBtn" class="primary-button">Save Session</button>
+    <button type="button" id="repeatSessionBtn" class="primary-button">Repeat This Session</button>
   </div>
 
   <script src="storage.js?v=6"></script>
-  <script src="summary.js?v=6"></script>
+  <script src="session-detail.js?v=6"></script>
 </body>
 </html>

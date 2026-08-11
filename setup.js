@@ -2,10 +2,12 @@ clearDraft();
 
 let totalBalls = 25;
 let numberOfSets = 3;
+let ballStep = 25;
 
 const totalBallsValueEl = document.getElementById("totalBallsValue");
 const decBallsBtn = document.getElementById("decBalls");
 const incBallsBtn = document.getElementById("incBalls");
+const stepOptionBtns = document.querySelectorAll(".step-option");
 const numSetsValueEl = document.getElementById("numSetsValue");
 const decSetsBtn = document.getElementById("decSets");
 const incSetsBtn = document.getElementById("incSets");
@@ -33,14 +35,22 @@ function renderNumSets() {
 
 decBallsBtn.addEventListener("click", () => {
   if (totalBalls > 5) {
-    totalBalls -= 5;
+    totalBalls = Math.max(5, totalBalls - ballStep);
     renderTotalBalls();
   }
 });
 
 incBallsBtn.addEventListener("click", () => {
-  totalBalls += 5;
+  totalBalls += ballStep;
   renderTotalBalls();
+});
+
+stepOptionBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    stepOptionBtns.forEach((b) => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    ballStep = Number(btn.dataset.step);
+  });
 });
 
 decSetsBtn.addEventListener("click", () => {

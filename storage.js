@@ -47,6 +47,12 @@ function rememberSetName(name) {
   localStorage.setItem(SET_NAMES_KEY, JSON.stringify(names.slice(0, MAX_SET_NAMES)));
 }
 
+function escapeHtml(str) {
+  const div = document.createElement("div");
+  div.textContent = str;
+  return div.innerHTML;
+}
+
 function formatDate(isoString) {
   const d = new Date(isoString);
   return d.toLocaleDateString(undefined, {

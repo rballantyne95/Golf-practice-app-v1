@@ -1,23 +1,23 @@
-const draft = getDraft();
+const params = new URLSearchParams(window.location.search);
+const sessionId = params.get("id");
+const session = getSessions().find((s) => s.id === sessionId);
 
-if (!draft || !draft.sets || draft.sets.length === 0) {
+if (!session) {
   window.location.href = "index.html";
 }
-
-const nowIso = new Date().toISOString();
 
 const summaryDateEl = document.getElementById("summaryDate");
 const summaryTotalBallsEl = document.getElementById("summaryTotalBalls");
 const summarySetsEl = document.getElementById("summarySets");
 const summaryThoughtsEl = document.getElementById("summaryThoughts");
-const saveSessionBtn = document.getElementById("saveSessionBtn");
+const repeatSessionBtn = document.getElementById("repeatSessionBtn");
 
 function render() {
-  summaryDateEl.textContent = formatDate(nowIso);
-  summaryTotalBallsEl.textContent = `${draft.totalBalls} balls hit`;
+  summaryDateEl.textContent = formatDate(session.date);
+  summaryTotalBallsEl.textContent = `${session.totalBalls} balls hit`;
 
   summarySetsEl.innerHTML = "";
-  draft.sets.forEach((set, index) => {
+  session.sets.forEach((set, index) => {
     const li = document.createElement("li");
     li.innerHTML = `
       <div class="summary-set-title">Set ${index + 1}: ${set.balls} balls &mdash; ${escapeHtml(set.focus)}</div>
@@ -27,12 +27,12 @@ function render() {
     summarySetsEl.appendChild(li);
   });
 
-  if (draft.swingThoughts.length === 0) {
+  if (session.swingThoughts.length === 0) {
     summaryThoughtsEl.innerHTML = '<div class="empty-state">No swing thoughts recorded</div>';
   } else {
     const list = document.createElement("ul");
     list.className = "thoughts-list";
-    draft.swingThoughts.forEach((thought) => {
+    session.swingThoughts.forEach((thought) => {
       const li = document.createElement("li");
       li.innerHTML = `<span class="set-label">${escapeHtml(thought)}</span>`;
       list.appendChild(li);
@@ -41,28 +41,17 @@ function render() {
   }
 }
 
-saveSessionBtn.addEventListener("click", () => {
-  const session = {
-    id: Date.now().toString(),
-    date: nowIso,
-    totalBalls: draft.totalBalls,
-    sets: draft.sets.map((s) => ({
-      balls: s.balls,
-      focus: s.focus,
-      rating: s.rating,
-      note: s.note,
-    })),
-    swingThoughts: draft.swingThoughts,
+repeatSessionBtn.addEventListener("click", () => {
+  const draft = {
+    totalBalls: session.totalBalls,
+    sets: session.sets.map((s) => ({ balls: s.balls, focus: s.focus, rating: null, note: "" })),
+    currentSetIndex: 0,
+    swingThoughts: [],
   };
-
-  const sessions = getSessions();
-  sessions.unshift(session);
-  saveSessions(sessions);
-  clearDraft();
-
-  window.location.href = "index.html";
+  saveDraft(draft);
+  window.location.href = "practice.html";
 });
 
-if (draft && draft.sets && draft.sets.length > 0) {
+if (session) {
   render();
 }

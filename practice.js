@@ -39,7 +39,7 @@ function renderThoughts() {
   thoughtsListEl.innerHTML = "";
   draft.swingThoughts.forEach((thought) => {
     const li = document.createElement("li");
-    li.innerHTML = `<span class="set-label">${thought}</span>`;
+    li.innerHTML = `<span class="set-label">${escapeHtml(thought)}</span>`;
     thoughtsListEl.appendChild(li);
   });
 }
