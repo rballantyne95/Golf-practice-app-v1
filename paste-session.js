@@ -48,6 +48,34 @@ renderFocusArea();
 const RANGE_PATTERN = /^(?:balls?\s+)?(\d+)\s*[-–—]\s*(\d+)\s*:\s*(.+)$/i;
 const COUNT_PATTERN = /^(?:set\s*\d+\s*[:\-]?\s*)?\(?(\d+)\s*balls?\)?\s*[:\-]\s*(.+)$/i;
 
+// A club is only recognized when it's the very first thing in the
+// description (as in "8 iron, Swing Guide, 50%..."), since matching a club
+// name anywhere in free text risks false positives. Maps common spoken/
+// written forms to our fixed club list.
+const CLUB_ALIASES = [
+  { pattern: /^9[\s-]?iron\b/i, club: "9i" },
+  { pattern: /^8[\s-]?iron\b/i, club: "8i" },
+  { pattern: /^7[\s-]?iron\b/i, club: "7i" },
+  { pattern: /^6[\s-]?iron\b/i, club: "6i" },
+  { pattern: /^5[\s-]?iron\b/i, club: "5i" },
+  { pattern: /^pitching[\s-]?wedge\b/i, club: "PW" },
+  { pattern: /^pw\b/i, club: "PW" },
+  { pattern: /^hybrid\b/i, club: "4h" },
+  { pattern: /^5[\s-]?wood\b/i, club: "5w" },
+  { pattern: /^driver\b/i, club: "Dr" },
+];
+
+function extractLeadingClub(description) {
+  for (const { pattern, club } of CLUB_ALIASES) {
+    const match = description.match(pattern);
+    if (match) {
+      const rest = description.slice(match[0].length).replace(/^[,\s]+/, "");
+      return { club, description: rest };
+    }
+  }
+  return { club: "", description };
+}
+
 function parseSessionText(text) {
   return text
     .split("\n")
@@ -59,12 +87,14 @@ function parseSessionText(text) {
       if (rangeMatch) {
         const start = parseInt(rangeMatch[1], 10);
         const end = parseInt(rangeMatch[2], 10);
-        return { balls: end - start + 1, focus: rangeMatch[3].trim() };
+        const { club, description } = extractLeadingClub(rangeMatch[3].trim());
+        return { balls: end - start + 1, focus: description, club };
       }
 
       const countMatch = line.match(COUNT_PATTERN);
       if (countMatch) {
-        return { balls: parseInt(countMatch[1], 10), focus: countMatch[2].trim() };
+        const { club, description } = extractLeadingClub(countMatch[2].trim());
+        return { balls: parseInt(countMatch[1], 10), focus: description, club };
       }
 
       return null;
@@ -94,7 +124,7 @@ parseBtn.addEventListener("click", () => {
   const draft = {
     focus: selectedFocusAreas.slice(),
     totalBalls,
-    sets: sets.map((s) => ({ balls: s.balls, focus: s.focus, club: "", rating: null, note: "" })),
+    sets: sets.map((s) => ({ balls: s.balls, focus: s.focus, club: s.club || "", rating: null, note: "" })),
   };
   saveDraft(draft);
   window.location.href = "review.html";
