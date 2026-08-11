@@ -12,6 +12,12 @@ const summaryTotalBallsEl = document.getElementById("summaryTotalBalls");
 const summarySetsEl = document.getElementById("summarySets");
 const summaryThoughtsEl = document.getElementById("summaryThoughts");
 const saveSessionBtn = document.getElementById("saveSessionBtn");
+const closeBtn = document.getElementById("closeBtn");
+
+closeBtn.addEventListener("click", () => {
+  clearDraft();
+  window.location.href = "index.html";
+});
 
 function render() {
   summaryDateEl.textContent = formatDate(nowIso);

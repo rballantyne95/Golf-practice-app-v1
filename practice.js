@@ -6,6 +6,8 @@ if (!draft || !draft.sets || draft.sets.length === 0) {
 
 let selectedRating = null;
 
+const closeBtn = document.getElementById("closeBtn");
+const sessionFocusBannerEl = document.getElementById("sessionFocusBanner");
 const setProgressEl = document.getElementById("setProgress");
 const setBallsEl = document.getElementById("setBalls");
 const clubPickerEl = document.getElementById("clubPicker");
@@ -19,6 +21,11 @@ const thoughtCountEl = document.getElementById("thoughtCount");
 const thoughtsListEl = document.getElementById("thoughtsList");
 const newThoughtInput = document.getElementById("newThought");
 const addThoughtBtn = document.getElementById("addThoughtBtn");
+
+closeBtn.addEventListener("click", () => {
+  clearDraft();
+  window.location.href = "index.html";
+});
 
 function renderClubForCurrentSet() {
   const set = draft.sets[draft.currentSetIndex];
@@ -97,6 +104,7 @@ addThoughtBtn.addEventListener("click", () => {
 });
 
 if (draft && draft.sets && draft.sets.length > 0) {
+  sessionFocusBannerEl.textContent = draft.focus || "No focus set";
   renderCurrentSet();
   renderThoughts();
 }
