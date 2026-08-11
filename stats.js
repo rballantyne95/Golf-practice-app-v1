@@ -4,19 +4,37 @@ const viewToggle = document.getElementById("viewToggle");
 const statsContainer = document.getElementById("statsContainer");
 
 const sessions = getSessions();
-let currentView = "focus";
+let currentView = "sessionFocus";
 
-function aggregate(view) {
-  const totals = new Map();
-  sessions.forEach((session) => {
-    session.sets.forEach((set) => {
-      const key = view === "focus" ? set.focus : set.club || "No Club";
-      totals.set(key, (totals.get(key) || 0) + set.balls);
-    });
-  });
+function sortedEntries(totals) {
   return Array.from(totals.entries())
     .map(([label, balls]) => ({ label, balls }))
     .sort((a, b) => b.balls - a.balls);
+}
+
+function aggregateBySessionFocus() {
+  const totals = new Map();
+  sessions.forEach((session) => {
+    const key = session.focus || "No Focus Set";
+    const balls = session.sets.reduce((sum, s) => sum + s.balls, 0);
+    totals.set(key, (totals.get(key) || 0) + balls);
+  });
+  return sortedEntries(totals);
+}
+
+function aggregateBySet(view) {
+  const totals = new Map();
+  sessions.forEach((session) => {
+    session.sets.forEach((set) => {
+      const key = view === "drill" ? set.focus : set.club || "No Club";
+      totals.set(key, (totals.get(key) || 0) + set.balls);
+    });
+  });
+  return sortedEntries(totals);
+}
+
+function aggregate(view) {
+  return view === "sessionFocus" ? aggregateBySessionFocus() : aggregateBySet(view);
 }
 
 function render() {

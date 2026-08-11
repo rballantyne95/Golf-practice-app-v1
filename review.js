@@ -4,6 +4,7 @@ if (!draft || !draft.sets || draft.sets.length === 0) {
   window.location.href = "index.html";
 }
 
+const summaryFocusEl = document.getElementById("summaryFocus");
 const summaryTotalBallsEl = document.getElementById("summaryTotalBalls");
 const summarySetsEl = document.getElementById("summarySets");
 const startNowBtn = document.getElementById("startNowBtn");
@@ -19,6 +20,7 @@ closeBtn.addEventListener("click", () => {
 });
 
 function render() {
+  summaryFocusEl.textContent = draft.focus || "No focus set";
   summaryTotalBallsEl.textContent = `${draft.totalBalls} balls`;
 
   summarySetsEl.innerHTML = "";
@@ -54,6 +56,7 @@ saveSessionBtn.addEventListener("click", () => {
   savedSessions.unshift({
     id: Date.now().toString(),
     name,
+    focus: draft.focus || "",
     totalBalls: draft.totalBalls,
     sets: draft.sets.map((s) => ({ balls: s.balls, focus: s.focus, club: s.club || "" })),
   });

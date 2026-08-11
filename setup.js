@@ -3,7 +3,12 @@ clearDraft();
 let totalBalls = 25;
 let numberOfSets = 3;
 let ballStep = 25;
+let selectedFocusArea = "";
 
+const focusAreaPickerEl = document.getElementById("focusAreaPicker");
+const newFocusAreaInput = document.getElementById("newFocusArea");
+const addFocusAreaBtn = document.getElementById("addFocusAreaBtn");
+const focusAreaErrorEl = document.getElementById("focusAreaError");
 const totalBallsValueEl = document.getElementById("totalBallsValue");
 const decBallsBtn = document.getElementById("decBalls");
 const incBallsBtn = document.getElementById("incBalls");
@@ -17,6 +22,25 @@ const closeBtn = document.getElementById("closeBtn");
 closeBtn.addEventListener("click", () => {
   clearDraft();
   window.location.href = "index.html";
+});
+
+function renderFocusArea() {
+  renderFocusAreaPicker(focusAreaPickerEl, selectedFocusArea, (value) => {
+    selectedFocusArea = value;
+    focusAreaErrorEl.classList.add("hidden");
+    renderFocusArea();
+  });
+}
+
+addFocusAreaBtn.addEventListener("click", () => {
+  const name = newFocusAreaInput.value.trim();
+  if (!name) return;
+
+  addCustomFocusArea(name);
+  selectedFocusArea = name;
+  newFocusAreaInput.value = "";
+  focusAreaErrorEl.classList.add("hidden");
+  renderFocusArea();
 });
 
 function maxSets() {
@@ -74,7 +98,13 @@ incSetsBtn.addEventListener("click", () => {
 });
 
 continueBtn.addEventListener("click", () => {
+  if (!selectedFocusArea) {
+    focusAreaErrorEl.classList.remove("hidden");
+    return;
+  }
+
   const draft = {
+    focus: selectedFocusArea,
     totalBalls,
     numberOfSets,
     sets: [],
@@ -86,3 +116,4 @@ continueBtn.addEventListener("click", () => {
 
 renderTotalBalls();
 renderNumSets();
+renderFocusArea();

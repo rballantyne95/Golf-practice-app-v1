@@ -8,6 +8,7 @@ if (!session) {
 }
 
 const sessionNameEl = document.getElementById("sessionName");
+const summaryFocusEl = document.getElementById("summaryFocus");
 const summaryTotalBallsEl = document.getElementById("summaryTotalBalls");
 const summarySetsEl = document.getElementById("summarySets");
 const startBtn = document.getElementById("startBtn");
@@ -15,6 +16,7 @@ const deleteBtn = document.getElementById("deleteBtn");
 
 function render() {
   sessionNameEl.textContent = session.name;
+  summaryFocusEl.textContent = session.focus || "No focus set";
   summaryTotalBallsEl.textContent = `${session.totalBalls} balls`;
 
   summarySetsEl.innerHTML = "";
@@ -27,6 +29,7 @@ function render() {
 
 startBtn.addEventListener("click", () => {
   const draft = {
+    focus: session.focus || "",
     totalBalls: session.totalBalls,
     sets: session.sets.map((s) => ({ balls: s.balls, focus: s.focus, club: s.club || "", rating: null, note: "" })),
     currentSetIndex: 0,

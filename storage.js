@@ -13,7 +13,18 @@ const SESSIONS_KEY = "golfSessions";
 const DRAFT_KEY = "golfDraftSession";
 const SET_NAMES_KEY = "golfSetNames";
 const SAVED_SESSIONS_KEY = "golfSavedSessions";
+const CUSTOM_FOCUS_AREAS_KEY = "golfCustomFocusAreas";
 const MAX_SET_NAMES = 8;
+
+const BUILT_IN_FOCUS_AREAS = [
+  "Backswing path",
+  "Downswing path",
+  "Swing length",
+  "Club release",
+  "Hinging",
+  "Rotation backswing",
+  "Pushing up downswing",
+];
 
 function getSessions() {
   const raw = localStorage.getItem(SESSIONS_KEY);
@@ -55,6 +66,35 @@ function rememberSetName(name) {
   const names = getSetNames().filter((n) => n.toLowerCase() !== name.toLowerCase());
   names.unshift(name);
   localStorage.setItem(SET_NAMES_KEY, JSON.stringify(names.slice(0, MAX_SET_NAMES)));
+}
+
+function getCustomFocusAreas() {
+  const raw = localStorage.getItem(CUSTOM_FOCUS_AREAS_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+function addCustomFocusArea(name) {
+  const existing = allFocusAreas();
+  if (existing.some((f) => f.toLowerCase() === name.toLowerCase())) return;
+  const custom = getCustomFocusAreas();
+  custom.push(name);
+  localStorage.setItem(CUSTOM_FOCUS_AREAS_KEY, JSON.stringify(custom));
+}
+
+function allFocusAreas() {
+  return [...BUILT_IN_FOCUS_AREAS, ...getCustomFocusAreas()];
+}
+
+function renderFocusAreaPicker(container, selectedFocus, onSelect) {
+  container.innerHTML = "";
+  allFocusAreas().forEach((area) => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "club-btn" + (area === selectedFocus ? " selected" : "");
+    btn.textContent = area;
+    btn.addEventListener("click", () => onSelect(area));
+    container.appendChild(btn);
+  });
 }
 
 const CLUBS = ["58", "54", "50", "PW", "9i", "8i", "7i", "6i", "5i", "4h", "5w", "Dr"];

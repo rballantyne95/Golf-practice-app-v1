@@ -7,6 +7,7 @@ if (!draft || !draft.sets || draft.sets.length === 0) {
 const nowIso = new Date().toISOString();
 
 const summaryDateEl = document.getElementById("summaryDate");
+const summaryFocusEl = document.getElementById("summaryFocus");
 const summaryTotalBallsEl = document.getElementById("summaryTotalBalls");
 const summarySetsEl = document.getElementById("summarySets");
 const summaryThoughtsEl = document.getElementById("summaryThoughts");
@@ -14,6 +15,7 @@ const saveSessionBtn = document.getElementById("saveSessionBtn");
 
 function render() {
   summaryDateEl.textContent = formatDate(nowIso);
+  summaryFocusEl.textContent = draft.focus || "No focus set";
   summaryTotalBallsEl.textContent = `${draft.totalBalls} balls hit`;
 
   summarySetsEl.innerHTML = "";
@@ -45,6 +47,7 @@ saveSessionBtn.addEventListener("click", () => {
   const session = {
     id: Date.now().toString(),
     date: nowIso,
+    focus: draft.focus || "",
     totalBalls: draft.totalBalls,
     sets: draft.sets.map((s) => ({
       balls: s.balls,

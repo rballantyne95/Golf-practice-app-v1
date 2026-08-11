@@ -2,11 +2,37 @@ const textareaEl = document.getElementById("sessionText");
 const parseErrorEl = document.getElementById("parseError");
 const parseBtn = document.getElementById("parseBtn");
 const closeBtn = document.getElementById("closeBtn");
+const focusAreaPickerEl = document.getElementById("focusAreaPicker");
+const newFocusAreaInput = document.getElementById("newFocusArea");
+const addFocusAreaBtn = document.getElementById("addFocusAreaBtn");
+
+let selectedFocusArea = "";
 
 closeBtn.addEventListener("click", () => {
   clearDraft();
   window.location.href = "index.html";
 });
+
+function renderFocusArea() {
+  renderFocusAreaPicker(focusAreaPickerEl, selectedFocusArea, (value) => {
+    selectedFocusArea = value;
+    parseErrorEl.classList.add("hidden");
+    renderFocusArea();
+  });
+}
+
+addFocusAreaBtn.addEventListener("click", () => {
+  const name = newFocusAreaInput.value.trim();
+  if (!name) return;
+
+  addCustomFocusArea(name);
+  selectedFocusArea = name;
+  newFocusAreaInput.value = "";
+  parseErrorEl.classList.add("hidden");
+  renderFocusArea();
+});
+
+renderFocusArea();
 
 // Recognizes two line shapes per set:
 //   "Balls 1-20: description"  (a ball range, "Balls" optional after the first line)
@@ -40,6 +66,12 @@ function parseSessionText(text) {
 }
 
 parseBtn.addEventListener("click", () => {
+  if (!selectedFocusArea) {
+    parseErrorEl.textContent = "Choose or add a focus for this session before parsing.";
+    parseErrorEl.classList.remove("hidden");
+    return;
+  }
+
   const sets = parseSessionText(textareaEl.value);
 
   if (sets.length === 0) {
@@ -53,6 +85,7 @@ parseBtn.addEventListener("click", () => {
 
   const totalBalls = sets.reduce((sum, s) => sum + s.balls, 0);
   const draft = {
+    focus: selectedFocusArea,
     totalBalls,
     sets: sets.map((s) => ({ balls: s.balls, focus: s.focus, club: "", rating: null, note: "" })),
   };
