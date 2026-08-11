@@ -8,6 +8,7 @@ let selectedRating = null;
 
 const setProgressEl = document.getElementById("setProgress");
 const setBallsEl = document.getElementById("setBalls");
+const clubPickerEl = document.getElementById("clubPicker");
 const setFocusEl = document.getElementById("setFocus");
 const completeSetBtn = document.getElementById("completeSetBtn");
 const ratingSection = document.getElementById("ratingSection");
@@ -19,11 +20,21 @@ const thoughtsListEl = document.getElementById("thoughtsList");
 const newThoughtInput = document.getElementById("newThought");
 const addThoughtBtn = document.getElementById("addThoughtBtn");
 
+function renderClubForCurrentSet() {
+  const set = draft.sets[draft.currentSetIndex];
+  renderClubPicker(clubPickerEl, set.club || "", (value) => {
+    set.club = value;
+    saveDraft(draft);
+    renderClubForCurrentSet();
+  });
+}
+
 function renderCurrentSet() {
   const set = draft.sets[draft.currentSetIndex];
   setProgressEl.textContent = `SET ${draft.currentSetIndex + 1} OF ${draft.sets.length}`;
   setBallsEl.textContent = `${set.balls} BALLS`;
   setFocusEl.textContent = set.focus;
+  renderClubForCurrentSet();
 
   selectedRating = null;
   setNoteEl.value = "";

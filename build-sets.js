@@ -5,12 +5,14 @@ if (!draft || !draft.totalBalls || !draft.numberOfSets) {
 }
 
 let currentBalls = 10;
+let currentClub = "";
 
 const setProgressEl = document.getElementById("setProgress");
 const decSetBallsBtn = document.getElementById("decSetBalls");
 const incSetBallsBtn = document.getElementById("incSetBalls");
 const setBallsValueEl = document.getElementById("setBallsValue");
 const remainingHintEl = document.getElementById("remainingHint");
+const clubPickerEl = document.getElementById("clubPicker");
 const recentNamesEl = document.getElementById("recentNames");
 const focusInput = document.getElementById("focusInput");
 const focusErrorEl = document.getElementById("focusError");
@@ -68,9 +70,18 @@ function renderStep() {
   }
 
   setBallsValueEl.textContent = currentBalls;
+  currentClub = "";
+  renderClub();
   focusInput.value = "";
   focusErrorEl.classList.add("hidden");
   nextSetBtn.textContent = last ? "Review Session" : "Next Set";
+}
+
+function renderClub() {
+  renderClubPicker(clubPickerEl, currentClub, (value) => {
+    currentClub = value;
+    renderClub();
+  });
 }
 
 function renderRecentNames() {
@@ -95,7 +106,7 @@ function renderBuiltSets() {
   draft.sets.forEach((set, index) => {
     const li = document.createElement("li");
     li.innerHTML = `
-      <span class="set-label">Set ${index + 1}: ${set.balls} balls &mdash; ${escapeHtml(set.focus)}</span>
+      <span class="set-label">Set ${index + 1}: ${ballsAndClubLabel(set)} &mdash; ${escapeHtml(set.focus)}</span>
       <span class="edit-hint">Edit &rsaquo;</span>
     `;
     li.addEventListener("click", () => editSet(index));
@@ -113,6 +124,8 @@ function editSet(index) {
   renderBuiltSets();
 
   focusInput.value = setToEdit.focus;
+  currentClub = setToEdit.club || "";
+  renderClub();
   if (!isLastSet()) {
     currentBalls = Math.min(setToEdit.balls, maxForCurrentSet());
     setBallsValueEl.textContent = currentBalls;
@@ -150,7 +163,7 @@ nextSetBtn.addEventListener("click", () => {
     return;
   }
 
-  draft.sets.push({ balls: currentBalls, focus, rating: null, note: "" });
+  draft.sets.push({ balls: currentBalls, focus, club: currentClub, rating: null, note: "" });
   rememberSetName(focus);
   draft.buildIndex += 1;
   saveDraft(draft);

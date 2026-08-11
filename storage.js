@@ -57,6 +57,26 @@ function rememberSetName(name) {
   localStorage.setItem(SET_NAMES_KEY, JSON.stringify(names.slice(0, MAX_SET_NAMES)));
 }
 
+const CLUBS = ["58", "54", "50", "PW", "9i", "8i", "7i", "6i", "5i", "4h", "5w", "Dr"];
+
+function renderClubPicker(container, selectedClub, onSelect) {
+  container.innerHTML = "";
+  const options = ["No Club", ...CLUBS];
+  options.forEach((label) => {
+    const value = label === "No Club" ? "" : label;
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "club-btn" + (value === selectedClub ? " selected" : "");
+    btn.textContent = label;
+    btn.addEventListener("click", () => onSelect(value));
+    container.appendChild(btn);
+  });
+}
+
+function ballsAndClubLabel(set) {
+  return set.club ? `${set.balls} balls · ${escapeHtml(set.club)}` : `${set.balls} balls`;
+}
+
 function escapeHtml(str) {
   const div = document.createElement("div");
   div.textContent = str;

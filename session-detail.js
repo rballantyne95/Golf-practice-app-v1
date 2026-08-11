@@ -20,7 +20,7 @@ function render() {
   session.sets.forEach((set, index) => {
     const li = document.createElement("li");
     li.innerHTML = `
-      <div class="summary-set-title">Set ${index + 1}: ${set.balls} balls &mdash; ${escapeHtml(set.focus)}</div>
+      <div class="summary-set-title">Set ${index + 1}: ${ballsAndClubLabel(set)} &mdash; ${escapeHtml(set.focus)}</div>
       <div class="summary-set-rating">${set.rating}</div>
       ${set.note ? `<div class="summary-set-note">${escapeHtml(set.note)}</div>` : ""}
     `;
@@ -44,7 +44,7 @@ function render() {
 repeatSessionBtn.addEventListener("click", () => {
   const draft = {
     totalBalls: session.totalBalls,
-    sets: session.sets.map((s) => ({ balls: s.balls, focus: s.focus, rating: null, note: "" })),
+    sets: session.sets.map((s) => ({ balls: s.balls, focus: s.focus, club: s.club || "", rating: null, note: "" })),
     currentSetIndex: 0,
     swingThoughts: [],
   };

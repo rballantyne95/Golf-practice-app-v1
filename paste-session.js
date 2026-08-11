@@ -54,7 +54,7 @@ parseBtn.addEventListener("click", () => {
   const totalBalls = sets.reduce((sum, s) => sum + s.balls, 0);
   const draft = {
     totalBalls,
-    sets: sets.map((s) => ({ balls: s.balls, focus: s.focus, rating: null, note: "" })),
+    sets: sets.map((s) => ({ balls: s.balls, focus: s.focus, club: "", rating: null, note: "" })),
   };
   saveDraft(draft);
   window.location.href = "review.html";

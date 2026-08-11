@@ -24,7 +24,7 @@ function render() {
   summarySetsEl.innerHTML = "";
   draft.sets.forEach((set, index) => {
     const li = document.createElement("li");
-    li.innerHTML = `<div class="summary-set-title">Set ${index + 1}: ${set.balls} balls &mdash; ${escapeHtml(set.focus)}</div>`;
+    li.innerHTML = `<div class="summary-set-title">Set ${index + 1}: ${ballsAndClubLabel(set)} &mdash; ${escapeHtml(set.focus)}</div>`;
     summarySetsEl.appendChild(li);
   });
 }
@@ -55,7 +55,7 @@ saveSessionBtn.addEventListener("click", () => {
     id: Date.now().toString(),
     name,
     totalBalls: draft.totalBalls,
-    sets: draft.sets.map((s) => ({ balls: s.balls, focus: s.focus })),
+    sets: draft.sets.map((s) => ({ balls: s.balls, focus: s.focus, club: s.club || "" })),
   });
   saveSavedSessions(savedSessions);
   clearDraft();
