@@ -39,7 +39,7 @@ function renderClubForCurrentSet() {
 function renderCurrentSet() {
   const set = draft.sets[draft.currentSetIndex];
   setProgressEl.textContent = `SET ${draft.currentSetIndex + 1} OF ${draft.sets.length}`;
-  setBallsEl.textContent = `${set.balls} BALLS`;
+  setBallsEl.innerHTML = `<span class="metric-value">${set.balls}</span><span class="metric-unit">BALLS</span>`;
   setFocusEl.textContent = set.focus;
   renderClubForCurrentSet();
 

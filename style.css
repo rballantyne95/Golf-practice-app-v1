@@ -8,6 +8,26 @@
   --card-bg: #ffffff;
   --border: #e0e0e0;
   --amber: #b26a00;
+
+  /* Design System v2 (dark) — new token names so they can never collide
+     with or override the legacy tokens above. Only rules scoped under a
+     ".*-view" class (currently just .practice-view) use these, so
+     screens not yet redesigned are completely unaffected. */
+  --app-bg: #0b1026;
+  --surface: #151c38;
+  --surface-raised: #1d2647;
+  --text-primary: #f7f8fc;
+  --text-secondary: #98a2bc;
+  --accent: #54e38e;
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-pill: 999px;
+  --space-1: 6px;
+  --space-2: 10px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 36px;
 }
 
 * {
@@ -588,4 +608,224 @@ ul.sessions-list li .session-meta {
   font-weight: 600;
   text-align: center;
   cursor: pointer;
+}
+
+/* ==========================================================================
+   Design System v2 — dark/premium redesign
+   Everything below is scoped under .practice-view, so it can only ever
+   affect the active practice screen. Element classes like .primary-button,
+   .club-grid and .close-btn are shared with other, not-yet-redesigned
+   screens - the scoping is what keeps those screens on the legacy look.
+   As each further screen is redesigned it gets its own scope class reusing
+   the same tokens and patterns defined here.
+   ========================================================================== */
+
+.practice-view {
+  background: var(--app-bg);
+  color: var(--text-primary);
+}
+
+.practice-view .close-btn {
+  background: var(--surface-raised);
+  border-color: var(--border-subtle);
+  color: var(--text-secondary);
+}
+
+.practice-view .close-btn:active {
+  background: var(--surface);
+}
+
+/* Section label — the small uppercase secondary caption pattern used for
+   "SET 1 OF 3", "CLUB", "RATE THIS SET", "SWING THOUGHTS" etc. */
+.practice-view .section-label,
+.practice-view .set-progress,
+.practice-view #ratingSection h2,
+.practice-view details.swing-thoughts summary {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.practice-view .set-progress {
+  margin-bottom: var(--space-2);
+}
+
+.practice-view .session-focus-banner {
+  display: inline-flex;
+  align-self: center;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: var(--space-4);
+  padding: 6px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-pill);
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.practice-view .session-focus-banner::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+/* The dominant hero metric — "10 BALLS" */
+.practice-view .set-balls {
+  text-align: center;
+  margin: 0 0 var(--space-4);
+  padding: var(--space-4) var(--space-3);
+  background: linear-gradient(180deg, var(--surface-raised) 0%, var(--surface) 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 0 48px -16px rgba(84, 227, 142, 0.35);
+}
+
+.practice-view .set-balls .metric-value {
+  display: block;
+  font-size: clamp(3.5rem, 17vw, 5.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+}
+
+.practice-view .set-balls .metric-unit {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.practice-view .set-focus {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+  padding: 0 var(--space-2);
+}
+
+.practice-view .section-label {
+  margin-bottom: var(--space-2);
+}
+
+.practice-view .club-grid {
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.practice-view .club-btn {
+  padding: 10px 16px;
+  min-width: 44px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+  color: var(--text-secondary);
+}
+
+.practice-view .club-btn.selected {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--app-bg);
+}
+
+.practice-view .primary-button {
+  background: var(--accent);
+  color: var(--app-bg);
+  border: none;
+  border-radius: var(--radius-pill);
+  padding: 20px;
+  font-size: 1.15rem;
+  font-weight: 800;
+  box-shadow: 0 12px 32px -12px rgba(84, 227, 142, 0.5);
+  transition: transform 0.1s ease;
+}
+
+.practice-view .primary-button:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.practice-view .primary-button:disabled {
+  background: var(--surface-raised);
+  color: var(--text-secondary);
+  box-shadow: none;
+}
+
+.practice-view #ratingSection h2 {
+  margin: var(--space-4) 0 var(--space-3);
+}
+
+.practice-view .rating-buttons button {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-weight: 700;
+  padding: 18px 8px;
+}
+
+.practice-view .rating-buttons button.selected {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--app-bg);
+}
+
+.practice-view textarea {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+}
+
+.practice-view textarea::placeholder {
+  color: var(--text-secondary);
+}
+
+.practice-view details.swing-thoughts {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+.practice-view details.swing-thoughts summary {
+  margin-bottom: var(--space-3);
+  cursor: pointer;
+}
+
+.practice-view .thoughts-list li {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.practice-view .add-thought-row input {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.practice-view .add-thought-row input::placeholder {
+  color: var(--text-secondary);
+}
+
+.practice-view .add-thought-row button {
+  background: var(--accent);
+  color: var(--app-bg);
 }
