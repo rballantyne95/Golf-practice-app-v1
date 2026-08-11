@@ -21,8 +21,9 @@
   --text-secondary: #98a2bc;
   --accent: #54e38e;
   --border-subtle: rgba(255, 255, 255, 0.1);
+  --radius-sm: 10px;
+  --radius-md: 14px;
   --radius-lg: 28px;
-  --radius-md: 18px;
   --radius-pill: 999px;
   --space-1: 6px;
   --space-2: 10px;
@@ -696,28 +697,32 @@ ul.sessions-list li .session-meta {
   background: var(--surface);
 }
 
-/* Section label — the small uppercase secondary caption pattern used for
-   "SET 1 OF 3", "CLUB", "RATE THIS SET", "SWING THOUGHTS" etc. */
-.practice-view .section-label,
-.practice-view .set-progress,
-.practice-view #ratingSection h2,
-.practice-view details.swing-thoughts summary {
-  text-align: center;
-  font-size: 0.78rem;
+/* Compact uppercase status chip — reserved for the two elements that read
+   like a scoreboard/unit tag, not a general label style. */
+.practice-view .set-progress {
+  text-align: left;
+  font-size: 0.76rem;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--text-secondary);
+  margin-bottom: var(--space-2);
 }
 
-.practice-view .set-progress {
-  margin-bottom: var(--space-2);
+/* Plain secondary section labels — normal case, left-aligned. */
+.practice-view .section-label,
+.practice-view #ratingSection h2,
+.practice-view details.swing-thoughts summary {
+  text-align: left;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
 }
 
 .practice-view .session-focus-banner {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 8px;
   margin-bottom: var(--space-4);
   padding: 0;
@@ -728,16 +733,16 @@ ul.sessions-list li .session-meta {
 .practice-view .session-focus-banner .focus-pill {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 14px;
+  gap: 7px;
+  padding: 5px 12px;
   background: var(--surface);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-pill);
   color: var(--text-secondary);
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
 }
 
 .practice-view .session-focus-banner .focus-pill::before {
@@ -749,44 +754,39 @@ ul.sessions-list li .session-meta {
   background: var(--accent);
 }
 
-/* The dominant hero metric — "10 BALLS" */
+/* The dominant hero metric — "10 BALLS". No card: the type does the work. */
 .practice-view .set-balls {
   text-align: center;
-  margin: 0 0 var(--space-4);
-  padding: var(--space-4) var(--space-3);
-  background: linear-gradient(180deg, var(--surface-raised) 0%, var(--surface) 100%);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  box-shadow: 0 0 48px -16px rgba(84, 227, 142, 0.35);
+  margin: var(--space-2) 0 var(--space-5);
 }
 
 .practice-view .set-balls .metric-value {
   display: block;
-  font-size: clamp(3.5rem, 17vw, 5.5rem);
+  font-size: clamp(4rem, 20vw, 6rem);
   font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
   color: var(--text-primary);
 }
 
 .practice-view .set-balls .metric-unit {
   display: block;
-  margin-top: var(--space-2);
-  font-size: 0.85rem;
+  margin-top: 6px;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-secondary);
 }
 
 .practice-view .set-focus {
-  text-align: center;
-  font-size: 1.5rem;
+  text-align: left;
+  font-size: 1.2rem;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: normal;
+  line-height: 1.3;
   color: var(--text-primary);
-  margin-bottom: var(--space-3);
-  padding: 0 var(--space-2);
+  margin-bottom: var(--space-4);
 }
 
 .practice-view .section-label {
@@ -794,17 +794,17 @@ ul.sessions-list li .session-meta {
 }
 
 .practice-view .club-grid {
-  justify-content: center;
-  gap: var(--space-2);
+  justify-content: flex-start;
+  gap: 6px;
   margin-bottom: var(--space-4);
 }
 
 .practice-view .club-btn {
-  padding: 10px 16px;
-  min-width: 44px;
-  font-size: 0.9rem;
+  padding: 7px 12px;
+  min-width: 40px;
+  font-size: 0.82rem;
   font-weight: 700;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
   background: var(--surface);
   color: var(--text-secondary);
@@ -820,11 +820,11 @@ ul.sessions-list li .session-meta {
   background: var(--accent);
   color: var(--app-bg);
   border: none;
-  border-radius: var(--radius-pill);
-  padding: 20px;
-  font-size: 1.15rem;
-  font-weight: 800;
-  box-shadow: 0 12px 32px -12px rgba(84, 227, 142, 0.5);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(11, 16, 38, 0.35);
   transition: transform 0.1s ease;
 }
 
@@ -843,12 +843,12 @@ ul.sessions-list li .session-meta {
 }
 
 .practice-view .rating-buttons button {
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--border-subtle);
   background: var(--surface);
   color: var(--text-secondary);
   font-weight: 700;
-  padding: 18px 8px;
+  padding: 16px 8px;
 }
 
 .practice-view .rating-buttons button.selected {
@@ -860,7 +860,7 @@ ul.sessions-list li .session-meta {
 .practice-view textarea {
   background: var(--surface);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   color: var(--text-primary);
 }
 
@@ -885,9 +885,13 @@ ul.sessions-list li .session-meta {
   color: var(--text-primary);
 }
 
-.practice-view .add-thought-row input {
+/* #newThought carries an ID rule (border/border-radius) elsewhere in this
+   file that outranks a plain class selector - matching the ID here, scoped
+   under .practice-view, is what lets these overrides actually win. */
+.practice-view #newThought {
   background: var(--surface);
   border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
   color: var(--text-primary);
 }
 
@@ -898,4 +902,5 @@ ul.sessions-list li .session-meta {
 .practice-view .add-thought-row button {
   background: var(--accent);
   color: var(--app-bg);
+  border-radius: var(--radius-sm);
 }
