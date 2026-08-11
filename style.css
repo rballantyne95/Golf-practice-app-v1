@@ -344,6 +344,23 @@ ul.sets-list.editable-list li .edit-hint {
   margin-bottom: 10px;
 }
 
+.scale-endpoints {
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.8rem;
+  margin-top: -6px;
+}
+
+.review-line {
+  font-size: 0.98rem;
+  margin-bottom: 6px;
+}
+
+.review-line strong {
+  font-weight: 700;
+}
+
 ul.sets-list li button.remove-btn {
   background: none;
   border: none;

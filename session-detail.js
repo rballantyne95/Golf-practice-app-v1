@@ -10,6 +10,9 @@ if (!session) {
 const summaryDateEl = document.getElementById("summaryDate");
 const summaryFocusEl = document.getElementById("summaryFocus");
 const summaryTotalBallsEl = document.getElementById("summaryTotalBalls");
+const summaryCommitmentEl = document.getElementById("summaryCommitment");
+const summaryStrikeQualityEl = document.getElementById("summaryStrikeQuality");
+const summaryBallFlightEl = document.getElementById("summaryBallFlight");
 const summarySetsEl = document.getElementById("summarySets");
 const summaryThoughtsEl = document.getElementById("summaryThoughts");
 const repeatSessionBtn = document.getElementById("repeatSessionBtn");
@@ -19,6 +22,9 @@ function render() {
   summaryDateEl.textContent = formatDate(session.date);
   summaryFocusEl.textContent = formatFocusList(session.focus);
   summaryTotalBallsEl.textContent = `${session.totalBalls} balls hit`;
+  summaryCommitmentEl.innerHTML = `<strong>Commitment to Drills:</strong> ${session.commitmentRating != null ? session.commitmentRating + "/5" : "Not rated"}`;
+  summaryStrikeQualityEl.innerHTML = `<strong>Strike Quality:</strong> ${session.strikeQuality != null ? session.strikeQuality + "/5" : "Not rated"}`;
+  summaryBallFlightEl.innerHTML = `<strong>Ball Flight:</strong> ${escapeHtml(formatBallFlight(session.ballFlight))}`;
 
   summarySetsEl.innerHTML = "";
   session.sets.forEach((set, index) => {

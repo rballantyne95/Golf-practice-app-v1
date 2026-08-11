@@ -87,7 +87,7 @@ nextSetBtn.addEventListener("click", () => {
   saveDraft(draft);
 
   if (draft.currentSetIndex >= draft.sets.length) {
-    window.location.href = "summary.html";
+    window.location.href = "session-rating.html";
   } else {
     renderCurrentSet();
   }

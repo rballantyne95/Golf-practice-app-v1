@@ -9,6 +9,9 @@ const nowIso = new Date().toISOString();
 const summaryDateEl = document.getElementById("summaryDate");
 const summaryFocusEl = document.getElementById("summaryFocus");
 const summaryTotalBallsEl = document.getElementById("summaryTotalBalls");
+const summaryCommitmentEl = document.getElementById("summaryCommitment");
+const summaryStrikeQualityEl = document.getElementById("summaryStrikeQuality");
+const summaryBallFlightEl = document.getElementById("summaryBallFlight");
 const summarySetsEl = document.getElementById("summarySets");
 const summaryThoughtsEl = document.getElementById("summaryThoughts");
 const saveSessionBtn = document.getElementById("saveSessionBtn");
@@ -23,6 +26,9 @@ function render() {
   summaryDateEl.textContent = formatDate(nowIso);
   summaryFocusEl.textContent = formatFocusList(draft.focus);
   summaryTotalBallsEl.textContent = `${draft.totalBalls} balls hit`;
+  summaryCommitmentEl.innerHTML = `<strong>Commitment to Drills:</strong> ${draft.commitmentRating != null ? draft.commitmentRating + "/5" : "Not rated"}`;
+  summaryStrikeQualityEl.innerHTML = `<strong>Strike Quality:</strong> ${draft.strikeQuality != null ? draft.strikeQuality + "/5" : "Not rated"}`;
+  summaryBallFlightEl.innerHTML = `<strong>Ball Flight:</strong> ${escapeHtml(formatBallFlight(draft.ballFlight))}`;
 
   summarySetsEl.innerHTML = "";
   draft.sets.forEach((set, index) => {
@@ -55,6 +61,9 @@ saveSessionBtn.addEventListener("click", () => {
     date: nowIso,
     focus: normalizeFocusList(draft.focus),
     totalBalls: draft.totalBalls,
+    commitmentRating: draft.commitmentRating != null ? draft.commitmentRating : null,
+    strikeQuality: draft.strikeQuality != null ? draft.strikeQuality : null,
+    ballFlight: draft.ballFlight || {},
     sets: draft.sets.map((s) => ({
       balls: s.balls,
       focus: s.focus,

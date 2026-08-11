@@ -132,6 +132,12 @@ function ballsAndClubLabel(set) {
   return set.club ? `${set.balls} balls · ${escapeHtml(set.club)}` : `${set.balls} balls`;
 }
 
+function formatBallFlight(ballFlight) {
+  if (!ballFlight) return "Not recorded";
+  const tags = Object.values(ballFlight).filter(Boolean);
+  return tags.length ? tags.join(", ") : "Not recorded";
+}
+
 function escapeHtml(str) {
   const div = document.createElement("div");
   div.textContent = str;

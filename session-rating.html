@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session Review - Golf Practice</title>
+<link rel="stylesheet" href="style.css?v=20">
+</head>
+<body>
+  <div class="app">
+    <button type="button" id="closeBtn" class="close-btn" aria-label="Close">&times;</button>
+    <h1>Session Review</h1>
+
+    <section>
+      <h2>Commitment to Drills</h2>
+      <div class="rating-buttons" id="commitmentScale"></div>
+      <div class="scale-endpoints"><span>Low</span><span>High</span></div>
+    </section>
+
+    <section>
+      <h2>Strike Quality</h2>
+      <div class="rating-buttons" id="strikeScale"></div>
+      <div class="scale-endpoints"><span>Poor</span><span>Great</span></div>
+    </section>
+
+    <section>
+      <h2>Ball Flight (optional)</h2>
+
+      <div class="hint-text">Start Direction</div>
+      <div class="rating-buttons" id="directionGroup"></div>
+
+      <div class="hint-text">Shape</div>
+      <div class="rating-buttons" id="shapeGroup"></div>
+
+      <div class="hint-text">Contact</div>
+      <div class="rating-buttons" id="contactGroup"></div>
+
+      <div class="hint-text">Finish</div>
+      <div class="rating-buttons" id="finishGroup"></div>
+    </section>
+
+    <button type="button" id="continueBtn" class="primary-button" disabled>Continue</button>
+  </div>
+
+  <script src="storage.js?v=20"></script>
+  <script src="session-rating.js?v=20"></script>
+</body>
+</html>
