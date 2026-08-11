@@ -1,6 +1,7 @@
 const params = new URLSearchParams(window.location.search);
 const sessionId = params.get("id");
-const session = getSessions().find((s) => s.id === sessionId);
+const sessions = getSessions();
+const session = sessions.find((s) => s.id === sessionId);
 
 if (!session) {
   window.location.href = "index.html";
@@ -12,6 +13,7 @@ const summaryTotalBallsEl = document.getElementById("summaryTotalBalls");
 const summarySetsEl = document.getElementById("summarySets");
 const summaryThoughtsEl = document.getElementById("summaryThoughts");
 const repeatSessionBtn = document.getElementById("repeatSessionBtn");
+const deleteBtn = document.getElementById("deleteBtn");
 
 function render() {
   summaryDateEl.textContent = formatDate(session.date);
@@ -53,6 +55,12 @@ repeatSessionBtn.addEventListener("click", () => {
   };
   saveDraft(draft);
   window.location.href = "practice.html";
+});
+
+deleteBtn.addEventListener("click", () => {
+  const remaining = sessions.filter((s) => s.id !== sessionId);
+  saveSessions(remaining);
+  window.location.href = "index.html";
 });
 
 if (session) {
