@@ -195,6 +195,13 @@ h2 {
   color: var(--muted);
 }
 
+.field-error {
+  color: var(--amber);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin: -6px 0 12px;
+}
+
 .allocated-tracker {
   text-align: center;
   font-size: 1.05rem;

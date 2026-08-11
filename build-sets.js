@@ -13,6 +13,7 @@ const setBallsValueEl = document.getElementById("setBallsValue");
 const remainingHintEl = document.getElementById("remainingHint");
 const recentNamesEl = document.getElementById("recentNames");
 const focusInput = document.getElementById("focusInput");
+const focusErrorEl = document.getElementById("focusError");
 const nextSetBtn = document.getElementById("nextSetBtn");
 
 function allocatedSoFar() {
@@ -35,13 +36,10 @@ function updateStepperButtons() {
   incSetBallsBtn.disabled = currentBalls >= max;
 }
 
-function updateNextBtnState() {
-  nextSetBtn.disabled = focusInput.value.trim().length === 0;
-}
-
 function renderStep() {
   const remaining = draft.totalBalls - allocatedSoFar();
   const last = isLastSet();
+  const setsAfterThis = draft.numberOfSets - draft.buildIndex - 1;
 
   setProgressEl.textContent = `SET ${draft.buildIndex + 1} OF ${draft.numberOfSets}`;
 
@@ -52,14 +50,18 @@ function renderStep() {
     currentBalls = remaining;
     remainingHintEl.textContent = `${remaining} balls remaining — this set uses them all`;
   } else {
-    currentBalls = Math.min(10, maxForCurrentSet());
-    remainingHintEl.textContent = "";
+    const max = maxForCurrentSet();
+    currentBalls = Math.min(10, max);
+    remainingHintEl.textContent =
+      max < remaining
+        ? `Up to ${max} balls — ${setsAfterThis} set${setsAfterThis === 1 ? "" : "s"} still to come need at least 5 each`
+        : "";
     updateStepperButtons();
   }
 
   setBallsValueEl.textContent = currentBalls;
   focusInput.value = "";
-  updateNextBtnState();
+  focusErrorEl.classList.add("hidden");
   nextSetBtn.textContent = last ? "Review Session" : "Next Set";
 }
 
@@ -73,7 +75,7 @@ function renderRecentNames() {
     chip.textContent = name;
     chip.addEventListener("click", () => {
       focusInput.value = name;
-      updateNextBtnState();
+      focusErrorEl.classList.add("hidden");
     });
     recentNamesEl.appendChild(chip);
   });
@@ -95,11 +97,19 @@ incSetBallsBtn.addEventListener("click", () => {
   }
 });
 
-focusInput.addEventListener("input", updateNextBtnState);
+focusInput.addEventListener("input", () => {
+  if (focusInput.value.trim().length > 0) {
+    focusErrorEl.classList.add("hidden");
+  }
+});
 
 nextSetBtn.addEventListener("click", () => {
   const focus = focusInput.value.trim();
-  if (!focus) return;
+  if (!focus) {
+    focusErrorEl.classList.remove("hidden");
+    focusInput.focus();
+    return;
+  }
 
   draft.sets.push({ balls: currentBalls, focus, rating: null, note: "" });
   rememberSetName(focus);

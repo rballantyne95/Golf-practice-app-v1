@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Build Sets - Golf Practice</title>
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 </head>
 <body>
   <div class="app">
@@ -24,12 +24,13 @@
       <h2>Focus</h2>
       <div id="recentNames" class="chip-row"></div>
       <input type="text" id="focusInput" placeholder="Focus, e.g. Start line">
+      <div id="focusError" class="field-error hidden">Enter a focus for this set to continue</div>
     </section>
 
-    <button type="button" id="nextSetBtn" class="primary-button" disabled>Next Set</button>
+    <button type="button" id="nextSetBtn" class="primary-button">Next Set</button>
   </div>
 
-  <script src="storage.js?v=7"></script>
-  <script src="build-sets.js?v=7"></script>
+  <script src="storage.js?v=8"></script>
+  <script src="build-sets.js?v=8"></script>
 </body>
 </html>
