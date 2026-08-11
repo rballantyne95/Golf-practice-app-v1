@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review Session - Golf Practice</title>
+<link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+  <div class="app">
+    <h1>Review Session</h1>
+
+    <div class="summary-meta">
+      <strong id="summaryTotalBalls">0 balls</strong>
+    </div>
+
+    <section>
+      <h2>Sets</h2>
+      <ul class="summary-sets" id="summarySets"></ul>
+    </section>
+
+    <button type="button" id="startNowBtn" class="primary-button" style="margin-bottom:14px;">Start Practice Now</button>
+    <button type="button" id="showSaveBtn" class="secondary-button">Save for Later</button>
+
+    <div id="saveForm" class="hidden" style="margin-top:16px;">
+      <input type="text" id="sessionNameInput" placeholder="Name this session, e.g. Range Warm-up">
+      <button type="button" id="saveSessionBtn" class="primary-button" disabled>Save Session</button>
+    </div>
+  </div>
+
+  <script src="storage.js?v=7"></script>
+  <script src="review.js?v=7"></script>
+</body>
+</html>

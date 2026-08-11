@@ -12,6 +12,7 @@ window.addEventListener("pageshow", (event) => {
 const SESSIONS_KEY = "golfSessions";
 const DRAFT_KEY = "golfDraftSession";
 const SET_NAMES_KEY = "golfSetNames";
+const SAVED_SESSIONS_KEY = "golfSavedSessions";
 const MAX_SET_NAMES = 8;
 
 function getSessions() {
@@ -34,6 +35,15 @@ function saveDraft(draft) {
 
 function clearDraft() {
   localStorage.removeItem(DRAFT_KEY);
+}
+
+function getSavedSessions() {
+  const raw = localStorage.getItem(SAVED_SESSIONS_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+function saveSavedSessions(savedSessions) {
+  localStorage.setItem(SAVED_SESSIONS_KEY, JSON.stringify(savedSessions));
 }
 
 function getSetNames() {

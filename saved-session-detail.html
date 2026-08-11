@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saved Session - Golf Practice</title>
+<link rel="stylesheet" href="style.css?v=7">
+</head>
+<body>
+  <div class="app">
+    <a href="saved-sessions.html" class="back-link">&larr; Back</a>
+    <h1 id="sessionName">Session</h1>
+
+    <div class="summary-meta">
+      <strong id="summaryTotalBalls">0 balls</strong>
+    </div>
+
+    <section>
+      <h2>Sets</h2>
+      <ul class="summary-sets" id="summarySets"></ul>
+    </section>
+
+    <button type="button" id="startBtn" class="primary-button" style="margin-bottom:16px;">Start Practice</button>
+    <button type="button" id="deleteBtn" class="danger-link">Delete Saved Session</button>
+  </div>
+
+  <script src="storage.js?v=7"></script>
+  <script src="saved-session-detail.js?v=7"></script>
+</body>
+</html>

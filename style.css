@@ -444,3 +444,16 @@ ul.sessions-list li .session-meta {
   text-decoration: none;
   font-weight: 600;
 }
+
+.danger-link {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: none;
+  border: none;
+  color: var(--amber);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+}

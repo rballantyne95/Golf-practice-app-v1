@@ -4,7 +4,7 @@ if (!draft || !draft.totalBalls || !draft.numberOfSets) {
   window.location.href = "index.html";
 }
 
-let currentBalls = 5;
+let currentBalls = 10;
 
 const setProgressEl = document.getElementById("setProgress");
 const decSetBallsBtn = document.getElementById("decSetBalls");
@@ -52,7 +52,7 @@ function renderStep() {
     currentBalls = remaining;
     remainingHintEl.textContent = `${remaining} balls remaining — this set uses them all`;
   } else {
-    currentBalls = 5;
+    currentBalls = Math.min(10, maxForCurrentSet());
     remainingHintEl.textContent = "";
     updateStepperButtons();
   }
@@ -60,7 +60,7 @@ function renderStep() {
   setBallsValueEl.textContent = currentBalls;
   focusInput.value = "";
   updateNextBtnState();
-  nextSetBtn.textContent = last ? "Begin Practice" : "Next Set";
+  nextSetBtn.textContent = last ? "Review Session" : "Next Set";
 }
 
 function renderRecentNames() {
@@ -108,10 +108,7 @@ nextSetBtn.addEventListener("click", () => {
   renderRecentNames();
 
   if (draft.buildIndex >= draft.numberOfSets) {
-    draft.currentSetIndex = 0;
-    draft.swingThoughts = [];
-    saveDraft(draft);
-    window.location.href = "practice.html";
+    window.location.href = "review.html";
   } else {
     renderStep();
   }
