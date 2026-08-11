@@ -9,6 +9,14 @@ window.addEventListener("pageshow", (event) => {
   }
 });
 
+// Registered relative to this page's own URL, so it resolves correctly
+// whether the app is hosted at a domain root or a GitHub Pages subfolder.
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js");
+  });
+}
+
 const SESSIONS_KEY = "golfSessions";
 const DRAFT_KEY = "golfDraftSession";
 const SET_NAMES_KEY = "golfSetNames";
