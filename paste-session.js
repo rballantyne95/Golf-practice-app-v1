@@ -1,6 +1,12 @@
 const textareaEl = document.getElementById("sessionText");
 const parseErrorEl = document.getElementById("parseError");
 const parseBtn = document.getElementById("parseBtn");
+const closeBtn = document.getElementById("closeBtn");
+
+closeBtn.addEventListener("click", () => {
+  clearDraft();
+  window.location.href = "index.html";
+});
 
 // Recognizes two line shapes per set:
 //   "Balls 1-20: description"  (a ball range, "Balls" optional after the first line)

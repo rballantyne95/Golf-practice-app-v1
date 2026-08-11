@@ -12,6 +12,12 @@ const numSetsValueEl = document.getElementById("numSetsValue");
 const decSetsBtn = document.getElementById("decSets");
 const incSetsBtn = document.getElementById("incSets");
 const continueBtn = document.getElementById("continueBtn");
+const closeBtn = document.getElementById("closeBtn");
+
+closeBtn.addEventListener("click", () => {
+  clearDraft();
+  window.location.href = "index.html";
+});
 
 function maxSets() {
   return Math.floor(totalBalls / 5);

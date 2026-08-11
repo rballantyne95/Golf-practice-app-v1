@@ -28,6 +28,27 @@ body {
   padding: 24px 20px 40px;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--muted);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.close-btn:active {
+  background: var(--green-light);
+  border-color: var(--green);
 }
 
 h1 {

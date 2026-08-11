@@ -17,6 +17,12 @@ const focusErrorEl = document.getElementById("focusError");
 const nextSetBtn = document.getElementById("nextSetBtn");
 const builtSetsSectionEl = document.getElementById("builtSetsSection");
 const builtSetsListEl = document.getElementById("builtSetsList");
+const closeBtn = document.getElementById("closeBtn");
+
+closeBtn.addEventListener("click", () => {
+  clearDraft();
+  window.location.href = "index.html";
+});
 
 function allocatedSoFar() {
   return draft.sets.reduce((sum, s) => sum + s.balls, 0);

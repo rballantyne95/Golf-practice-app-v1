@@ -11,6 +11,12 @@ const showSaveBtn = document.getElementById("showSaveBtn");
 const saveForm = document.getElementById("saveForm");
 const sessionNameInput = document.getElementById("sessionNameInput");
 const saveSessionBtn = document.getElementById("saveSessionBtn");
+const closeBtn = document.getElementById("closeBtn");
+
+closeBtn.addEventListener("click", () => {
+  clearDraft();
+  window.location.href = "index.html";
+});
 
 function render() {
   summaryTotalBallsEl.textContent = `${draft.totalBalls} balls`;
