@@ -15,6 +15,8 @@ const recentNamesEl = document.getElementById("recentNames");
 const focusInput = document.getElementById("focusInput");
 const focusErrorEl = document.getElementById("focusError");
 const nextSetBtn = document.getElementById("nextSetBtn");
+const builtSetsSectionEl = document.getElementById("builtSetsSection");
+const builtSetsListEl = document.getElementById("builtSetsList");
 
 function allocatedSoFar() {
   return draft.sets.reduce((sum, s) => sum + s.balls, 0);
@@ -81,6 +83,37 @@ function renderRecentNames() {
   });
 }
 
+function renderBuiltSets() {
+  builtSetsSectionEl.classList.toggle("hidden", draft.sets.length === 0);
+  builtSetsListEl.innerHTML = "";
+  draft.sets.forEach((set, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span class="set-label">Set ${index + 1}: ${set.balls} balls &mdash; ${escapeHtml(set.focus)}</span>
+      <span class="edit-hint">Edit &rsaquo;</span>
+    `;
+    li.addEventListener("click", () => editSet(index));
+    builtSetsListEl.appendChild(li);
+  });
+}
+
+function editSet(index) {
+  const setToEdit = draft.sets[index];
+  draft.sets = draft.sets.slice(0, index);
+  draft.buildIndex = index;
+  saveDraft(draft);
+
+  renderStep();
+  renderBuiltSets();
+
+  focusInput.value = setToEdit.focus;
+  if (!isLastSet()) {
+    currentBalls = Math.min(setToEdit.balls, maxForCurrentSet());
+    setBallsValueEl.textContent = currentBalls;
+    updateStepperButtons();
+  }
+}
+
 decSetBallsBtn.addEventListener("click", () => {
   if (currentBalls > 5) {
     currentBalls -= 5;
@@ -116,6 +149,7 @@ nextSetBtn.addEventListener("click", () => {
   draft.buildIndex += 1;
   saveDraft(draft);
   renderRecentNames();
+  renderBuiltSets();
 
   if (draft.buildIndex >= draft.numberOfSets) {
     window.location.href = "review.html";
@@ -127,4 +161,5 @@ nextSetBtn.addEventListener("click", () => {
 if (draft && draft.totalBalls && draft.numberOfSets) {
   renderStep();
   renderRecentNames();
+  renderBuiltSets();
 }

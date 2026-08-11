@@ -250,6 +250,26 @@ ul.sets-list li .set-label {
   font-size: 0.98rem;
 }
 
+ul.sets-list.editable-list li {
+  cursor: pointer;
+}
+
+ul.sets-list.editable-list li:active {
+  background: var(--green-light);
+}
+
+ul.sets-list.editable-list li .edit-hint {
+  color: var(--muted);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.hint-text {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+
 ul.sets-list li button.remove-btn {
   background: none;
   border: none;
