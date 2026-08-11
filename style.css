@@ -466,6 +466,45 @@ ul.summary-sets li .summary-set-note {
   font-size: 0.95rem;
 }
 
+/* Stats */
+
+.stat-row {
+  margin-bottom: 16px;
+}
+
+.stat-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.stat-row-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.stat-row-value {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stat-bar-track {
+  height: 14px;
+  background: var(--green-light);
+  border-radius: 0 4px 4px 0;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  background: var(--green);
+  border-radius: 0 4px 4px 0;
+}
+
 /* Recent sessions (index) */
 
 .empty-state {

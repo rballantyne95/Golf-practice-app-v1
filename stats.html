@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stats - Golf Practice</title>
+<link rel="stylesheet" href="style.css?v=13">
+</head>
+<body>
+  <div class="app">
+    <a href="index.html" class="back-link">&larr; Back</a>
+    <h1>Stats</h1>
+
+    <div class="summary-meta">
+      <strong id="totalBallsStat">0 balls hit</strong>
+      <span id="sessionCountStat">across 0 sessions</span>
+    </div>
+
+    <div class="step-toggle" id="viewToggle">
+      <button type="button" class="step-option selected" data-view="focus">By Focus</button>
+      <button type="button" class="step-option" data-view="club">By Club</button>
+    </div>
+
+    <div id="statsContainer"></div>
+  </div>
+
+  <script src="storage.js?v=13"></script>
+  <script src="stats.js?v=13"></script>
+</body>
+</html>
