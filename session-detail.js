@@ -16,7 +16,10 @@ const summaryBallFlightEl = document.getElementById("summaryBallFlight");
 const summarySetsEl = document.getElementById("summarySets");
 const summaryThoughtsEl = document.getElementById("summaryThoughts");
 const repeatSessionBtn = document.getElementById("repeatSessionBtn");
+const editSessionLink = document.getElementById("editSessionLink");
 const deleteBtn = document.getElementById("deleteBtn");
+
+editSessionLink.href = `session-edit.html?id=${encodeURIComponent(sessionId)}`;
 
 function render() {
   summaryDateEl.textContent = formatDate(session.date);

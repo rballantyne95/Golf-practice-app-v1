@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Session Review - Golf Practice</title>
+<title>Edit Session - Golf Practice</title>
 <link rel="stylesheet" href="style.css?v=22">
 </head>
 <body>
   <div class="app">
-    <button type="button" id="closeBtn" class="close-btn" aria-label="Close">&times;</button>
-    <h1>Session Review</h1>
+    <a href="index.html" class="back-link" id="backLink">&larr; Back</a>
+    <h1>Edit Session</h1>
 
     <section>
       <h2>Commitment to Drills</h2>
@@ -36,10 +36,15 @@
       <div class="rating-buttons" id="contactGroup"></div>
     </section>
 
-    <button type="button" id="continueBtn" class="primary-button" disabled>Continue</button>
+    <section>
+      <h2>Set Ratings</h2>
+      <div id="setRatingsList"></div>
+    </section>
+
+    <button type="button" id="saveBtn" class="primary-button">Save Changes</button>
   </div>
 
   <script src="storage.js?v=22"></script>
-  <script src="session-rating.js?v=22"></script>
+  <script src="session-edit.js?v=22"></script>
 </body>
 </html>

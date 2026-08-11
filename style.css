@@ -362,6 +362,14 @@ ul.sets-list.editable-list li .edit-hint {
   font-weight: 700;
 }
 
+.set-rating-block {
+  margin-bottom: 20px;
+}
+
+.set-rating-block .summary-set-title {
+  margin-bottom: 8px;
+}
+
 ul.sets-list li button.remove-btn {
   background: none;
   border: none;
