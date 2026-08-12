@@ -371,6 +371,102 @@ textarea:disabled {
   margin-top: -6px;
 }
 
+/* 5-point scale slider (Commitment to Drills, Strike Quality). */
+
+.rating-slider {
+  margin-bottom: 10px;
+}
+
+.rating-slider-value {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: var(--space-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.rating-slider.untouched .rating-slider-value {
+  color: var(--text-secondary);
+}
+
+.slider-input {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(
+    to right,
+    var(--accent) var(--slider-percent, 50%),
+    var(--surface-raised) var(--slider-percent, 50%)
+  );
+  outline: none;
+  margin: 0;
+}
+
+.rating-slider.untouched .slider-input {
+  background: var(--surface-raised);
+}
+
+.slider-input::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+}
+
+.slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  margin-top: -10px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--app-bg);
+  box-shadow: 0 2px 6px rgba(11, 16, 38, 0.5);
+  cursor: pointer;
+}
+
+.rating-slider.untouched .slider-input::-webkit-slider-thumb {
+  background: var(--text-secondary);
+}
+
+.slider-input::-moz-range-track {
+  height: 8px;
+  border-radius: var(--radius-pill);
+  background: transparent;
+}
+
+.slider-input::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--app-bg);
+  box-shadow: 0 2px 6px rgba(11, 16, 38, 0.5);
+  cursor: pointer;
+}
+
+.rating-slider.untouched .slider-input::-moz-range-thumb {
+  background: var(--text-secondary);
+}
+
+.slider-ticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 13px;
+  margin-top: 10px;
+}
+
+.slider-ticks span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+}
+
 /* ==========================================================================
    Lists, rows and cards
    ========================================================================== */

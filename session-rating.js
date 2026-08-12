@@ -24,18 +24,6 @@ closeBtn.addEventListener("click", () => {
   window.location.href = "index.html";
 });
 
-function renderScale(container, selected, onSelect) {
-  container.innerHTML = "";
-  for (let value = 1; value <= 5; value++) {
-    const btn = document.createElement("button");
-    btn.type = "button";
-    btn.textContent = value;
-    if (value === selected) btn.classList.add("selected");
-    btn.addEventListener("click", () => onSelect(value));
-    container.appendChild(btn);
-  }
-}
-
 function renderGroup(container, options, selected, onSelect) {
   container.innerHTML = "";
   options.forEach((option) => {
@@ -53,7 +41,7 @@ function updateContinueState() {
 }
 
 function renderCommitment() {
-  renderScale(commitmentScaleEl, commitmentRating, (value) => {
+  renderRatingSlider(commitmentScaleEl, commitmentRating, (value) => {
     commitmentRating = value;
     renderCommitment();
     updateContinueState();
@@ -61,7 +49,7 @@ function renderCommitment() {
 }
 
 function renderStrike() {
-  renderScale(strikeScaleEl, strikeQuality, (value) => {
+  renderRatingSlider(strikeScaleEl, strikeQuality, (value) => {
     strikeQuality = value;
     renderStrike();
     updateContinueState();

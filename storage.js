@@ -93,6 +93,48 @@ function allFocusAreas() {
   return [...BUILT_IN_FOCUS_AREAS, ...getCustomFocusAreas()];
 }
 
+// A 5-point scale slider (Commitment to Drills, Strike Quality). `selected`
+// may be null (nothing chosen yet) — the thumb sits at the midpoint but
+// stays muted until the user drags it, so "not yet rated" stays distinct
+// from "rated 3". The input element is built once and updated in place on
+// re-render (rather than recreated) so an in-progress drag isn't cancelled
+// by the "input" event it fires triggering its own re-render.
+function renderRatingSlider(container, selected, onSelect) {
+  let input = container.querySelector(".slider-input");
+  let valueEl = container.querySelector(".rating-slider-value");
+
+  if (!input) {
+    container.innerHTML = "";
+
+    valueEl = document.createElement("div");
+    valueEl.className = "rating-slider-value";
+    container.appendChild(valueEl);
+
+    input = document.createElement("input");
+    input.type = "range";
+    input.min = "1";
+    input.max = "5";
+    input.step = "1";
+    input.className = "slider-input";
+    container.appendChild(input);
+
+    const ticks = document.createElement("div");
+    ticks.className = "slider-ticks";
+    for (let i = 0; i < 5; i++) ticks.appendChild(document.createElement("span"));
+    container.appendChild(ticks);
+
+    input.addEventListener("input", () => {
+      onSelect(Number(input.value));
+    });
+  }
+
+  const value = selected == null ? 3 : selected;
+  input.value = value;
+  input.style.setProperty("--slider-percent", ((value - 1) / 4) * 100 + "%");
+  valueEl.textContent = selected == null ? "–" : selected;
+  container.classList.toggle("untouched", selected == null);
+}
+
 const MAX_SESSION_FOCUSES = 3;
 
 function renderFocusAreaPicker(container, selectedFocuses, onToggle) {
