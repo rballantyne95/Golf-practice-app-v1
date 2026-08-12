@@ -8,6 +8,10 @@ if (!session) {
 }
 
 const backLink = document.getElementById("backLink");
+const focusAreaPickerEl = document.getElementById("focusAreaPicker");
+const newFocusAreaInput = document.getElementById("newFocusArea");
+const addFocusAreaBtn = document.getElementById("addFocusAreaBtn");
+const focusAreaErrorEl = document.getElementById("focusAreaError");
 const commitmentScaleEl = document.getElementById("commitmentScale");
 const strikeScaleEl = document.getElementById("strikeScale");
 const setRatingsListEl = document.getElementById("setRatingsList");
@@ -19,12 +23,39 @@ const BALL_FLIGHT_GROUPS = [
   { key: "contact", options: ["Fat", "Thin", "Crisp"], el: document.getElementById("contactGroup") },
 ];
 
+let sessionFocuses = [];
 let commitmentRating = null;
 let strikeQuality = null;
 const ballFlight = { direction: null, shape: null, contact: null };
 let setRatings = [];
 let setClubs = [];
 let setFocuses = [];
+
+function renderFocusArea() {
+  renderFocusAreaPicker(focusAreaPickerEl, sessionFocuses, (area) => {
+    const index = sessionFocuses.indexOf(area);
+    if (index >= 0) {
+      sessionFocuses.splice(index, 1);
+    } else if (sessionFocuses.length < MAX_SESSION_FOCUSES) {
+      sessionFocuses.push(area);
+    }
+    focusAreaErrorEl.classList.add("hidden");
+    renderFocusArea();
+  });
+}
+
+addFocusAreaBtn.addEventListener("click", () => {
+  const name = newFocusAreaInput.value.trim();
+  if (!name) return;
+
+  addCustomFocusArea(name);
+  if (!sessionFocuses.includes(name) && sessionFocuses.length < MAX_SESSION_FOCUSES) {
+    sessionFocuses.push(name);
+  }
+  newFocusAreaInput.value = "";
+  focusAreaErrorEl.classList.add("hidden");
+  renderFocusArea();
+});
 
 function renderGroup(container, options, selected, onSelect) {
   container.innerHTML = "";
@@ -124,6 +155,12 @@ function renderSetRatings() {
 }
 
 saveBtn.addEventListener("click", () => {
+  if (sessionFocuses.length === 0) {
+    focusAreaErrorEl.classList.remove("hidden");
+    return;
+  }
+
+  session.focus = sessionFocuses.slice();
   session.commitmentRating = commitmentRating;
   session.strikeQuality = strikeQuality;
   session.ballFlight = { ...ballFlight };
@@ -138,6 +175,7 @@ saveBtn.addEventListener("click", () => {
 
 if (session) {
   backLink.href = `session-detail.html?id=${encodeURIComponent(sessionId)}`;
+  sessionFocuses = normalizeFocusList(session.focus);
   commitmentRating = session.commitmentRating != null ? session.commitmentRating : null;
   strikeQuality = session.strikeQuality != null ? session.strikeQuality : null;
   ballFlight.direction = (session.ballFlight && session.ballFlight.direction) || null;
@@ -147,6 +185,7 @@ if (session) {
   setClubs = session.sets.map((s) => s.club || "");
   setFocuses = session.sets.map((s) => s.focus || "");
 
+  renderFocusArea();
   renderCommitment();
   renderStrike();
   renderBallFlightGroups();
