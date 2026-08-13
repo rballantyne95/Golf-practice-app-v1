@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Data - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0b1026">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=30">
+</head>
+<body>
+  <div class="app">
+    <a href="index.html" class="back-link">&larr; Back</a>
+    <h1>Your Data</h1>
+
+    <section>
+      <h2>Backup</h2>
+      <div class="hint-text">Save a copy of your practice history to this device as a file. Keep it somewhere safe (email it to yourself, upload it to cloud storage) so it survives a lost phone or a cleared browser.</div>
+      <button type="button" id="exportBtn" class="secondary-button">Export Backup</button>
+    </section>
+
+    <section>
+      <h2>Restore</h2>
+      <div class="hint-text">Restore practice history from a previously exported backup file.</div>
+      <button type="button" id="importBtn" class="secondary-button">Import Backup</button>
+      <input type="file" id="importFileInput" accept="application/json,.json" class="hidden">
+    </section>
+
+    <div id="statusMessage" class="hidden"></div>
+
+    <div id="importConfirm" class="confirm-card hidden">
+      <div class="confirm-warning">Restoring this backup will replace the current practice data on this device.</div>
+      <div class="confirm-summary" id="importSummary"></div>
+      <button type="button" id="confirmRestoreBtn" class="primary-button">Restore</button>
+      <button type="button" id="cancelRestoreBtn" class="secondary-button">Cancel</button>
+    </div>
+  </div>
+
+  <script src="storage.js?v=30"></script>
+  <script src="settings.js?v=30"></script>
+</body>
+</html>

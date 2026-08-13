@@ -210,6 +210,27 @@ section {
   color: var(--text-primary);
 }
 
+/* A quiet, secondary navigation link — deliberately not a button, since it
+   is not part of the normal practice workflow (e.g. Home -> Your Data). */
+.quiet-link {
+  display: block;
+  margin-top: var(--space-4);
+  text-align: center;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.quiet-link:hover {
+  color: var(--text-primary);
+}
+
+.quiet-link:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
 /* ==========================================================================
    Stepper — the circular +/- numeric control (total balls, set count, etc.)
    ========================================================================== */
@@ -401,6 +422,46 @@ textarea:disabled {
   color: var(--text-secondary);
   font-size: 0.85rem;
   margin-bottom: 10px;
+}
+
+/* ==========================================================================
+   Backup / restore (Your Data)
+   ========================================================================== */
+
+.status-message {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: -8px;
+  margin-bottom: 16px;
+}
+
+.status-message.success {
+  color: var(--accent);
+}
+
+.status-message.error {
+  color: var(--amber);
+}
+
+.confirm-card {
+  background: var(--surface);
+  border: 1px solid var(--amber);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.confirm-card .confirm-warning {
+  color: var(--amber);
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.confirm-card .confirm-summary {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 16px;
 }
 
 .allocated-tracker {

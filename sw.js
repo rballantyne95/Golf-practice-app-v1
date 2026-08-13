@@ -1,7 +1,7 @@
 // Bump this whenever app files change so browsers install a new worker,
 // cache files under a fresh name, and the activate step below wipes the
 // previous version's cache. Keep in step with the ?v=N bump on HTML/JS files.
-const CACHE_VERSION = "v29";
+const CACHE_VERSION = "v30";
 const CACHE_NAME = "golf-practice-" + CACHE_VERSION;
 
 // Paths are relative to this file's own location (the repo root), so they
@@ -23,21 +23,23 @@ const CORE_ASSETS = [
   "./saved-sessions.html",
   "./saved-session-detail.html",
   "./stats.html",
-  "./style.css?v=29",
-  "./storage.js?v=29",
-  "./index.js?v=29",
-  "./setup.js?v=29",
-  "./build-sets.js?v=29",
-  "./paste-session.js?v=29",
-  "./review.js?v=29",
-  "./practice.js?v=29",
-  "./session-rating.js?v=29",
-  "./summary.js?v=29",
-  "./session-detail.js?v=29",
-  "./session-edit.js?v=29",
-  "./saved-sessions.js?v=29",
-  "./saved-session-detail.js?v=29",
-  "./stats.js?v=29",
+  "./settings.html",
+  "./style.css?v=30",
+  "./storage.js?v=30",
+  "./index.js?v=30",
+  "./setup.js?v=30",
+  "./build-sets.js?v=30",
+  "./paste-session.js?v=30",
+  "./review.js?v=30",
+  "./practice.js?v=30",
+  "./session-rating.js?v=30",
+  "./summary.js?v=30",
+  "./session-detail.js?v=30",
+  "./session-edit.js?v=30",
+  "./saved-sessions.js?v=30",
+  "./saved-session-detail.js?v=30",
+  "./stats.js?v=30",
+  "./settings.js?v=30",
   "./manifest.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
