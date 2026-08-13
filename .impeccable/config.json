@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font-size",
+        "value": "1.1rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:09:52.528Z",
+        "reason": "pre-existing .primary-button size from the earlier user-approved dark-mode redesign; DESIGN.md's Body role prose documents button labels at 0.95-1.1rem, frontmatter just captured a single representative value"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.92rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:09:52.591Z",
+        "reason": "pre-existing ul.sessions-list .session-meta size from earlier user-approved redesign; a small/meta-text step DESIGN.md's 5 canonical roles don't separately enumerate"
+      }
+    ]
+  }
+}

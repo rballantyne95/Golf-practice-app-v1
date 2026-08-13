@@ -85,9 +85,25 @@ section {
   margin-bottom: 24px;
 }
 
+/* Home — the button pair reads as one tight group; "Recent Sessions" needs
+   its own clear break above it rather than inheriting a 0px gap. */
+#homeScreen a.primary-button {
+  margin-bottom: var(--space-3);
+}
+
+#homeScreen .recent-sessions {
+  margin-top: var(--space-4);
+}
+
 /* ==========================================================================
    Buttons
    ========================================================================== */
+
+.primary-button,
+.secondary-button {
+  text-decoration: none;
+  text-align: center;
+}
 
 .primary-button {
   display: block;
@@ -102,6 +118,10 @@ section {
   box-shadow: 0 2px 8px rgba(11, 16, 38, 0.35);
   transition: transform 0.1s ease;
   cursor: pointer;
+}
+
+.primary-button:hover:not(:disabled) {
+  filter: brightness(1.05);
 }
 
 .primary-button:active:not(:disabled) {
@@ -128,6 +148,7 @@ section {
   cursor: pointer;
 }
 
+.secondary-button:hover,
 .secondary-button:active {
   background: var(--surface-raised);
 }
@@ -136,6 +157,14 @@ section {
   color: var(--text-secondary);
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.primary-button:focus-visible,
+.secondary-button:focus-visible,
+.back-link:focus-visible,
+.close-btn:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
 }
 
 .danger-link {
@@ -582,8 +611,14 @@ ul.sessions-list li .session-link {
   text-decoration: none;
 }
 
+ul.sessions-list li .session-link:hover,
 ul.sessions-list li .session-link:active {
   background: var(--surface-raised);
+}
+
+ul.sessions-list li .session-link:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: -2px;
 }
 
 ul.sessions-list li .session-date {
