@@ -105,11 +105,19 @@ function renderBuiltSets() {
   builtSetsListEl.innerHTML = "";
   draft.sets.forEach((set, index) => {
     const li = document.createElement("li");
+    li.tabIndex = 0;
+    li.setAttribute("role", "button");
     li.innerHTML = `
       <span class="set-label">Set ${index + 1}: ${ballsAndClubLabel(set)} &mdash; ${escapeHtml(set.focus)}</span>
       <span class="edit-hint">Edit &rsaquo;</span>
     `;
     li.addEventListener("click", () => editSet(index));
+    li.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        editSet(index);
+      }
+    });
     builtSetsListEl.appendChild(li);
   });
 }

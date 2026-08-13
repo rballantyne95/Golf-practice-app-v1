@@ -56,6 +56,7 @@ body {
   cursor: pointer;
 }
 
+.close-btn:hover,
 .close-btn:active {
   background: var(--surface);
 }
@@ -85,13 +86,20 @@ section {
   margin-bottom: 24px;
 }
 
-/* Home — the button pair reads as one tight group; "Recent Sessions" needs
-   its own clear break above it rather than inheriting a 0px gap. */
-#homeScreen a.primary-button {
-  margin-bottom: var(--space-3);
+/* Stacked action spacing: buttons that lead into another action stay a
+   tight group (16px); a button that leads into a new heading/section needs
+   a clear break above it (24px) instead of inheriting a 0px gap. .app is a
+   flex column, so these margins do not collapse with each other — each
+   selector below owns exactly one transition, never two at once. */
+.primary-button + .secondary-button,
+.secondary-button + .secondary-button,
+.primary-button + .danger-link,
+.secondary-button + .danger-link {
+  margin-top: var(--space-3);
 }
 
-#homeScreen .recent-sessions {
+.primary-button + section,
+.secondary-button + section {
   margin-top: var(--space-4);
 }
 
@@ -180,6 +188,15 @@ section {
   cursor: pointer;
 }
 
+.danger-link:hover {
+  text-decoration: underline;
+}
+
+.danger-link:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
 .back-link {
   display: inline-block;
   margin-bottom: 16px;
@@ -187,6 +204,10 @@ section {
   text-decoration: none;
   font-weight: 600;
   font-size: 0.95rem;
+}
+
+.back-link:hover {
+  color: var(--text-primary);
 }
 
 /* ==========================================================================
@@ -210,6 +231,15 @@ section {
   background: var(--surface);
   color: var(--text-primary);
   cursor: pointer;
+}
+
+.stepper button:hover:not(:disabled) {
+  background: var(--surface-raised);
+}
+
+.stepper button:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
 }
 
 .stepper button:disabled {
@@ -250,6 +280,21 @@ section {
   border-color: var(--accent);
   background: var(--accent);
   color: var(--app-bg);
+}
+
+.step-option:hover:not(.selected):not(:disabled),
+.club-btn:hover:not(.selected):not(:disabled),
+.chip:hover:not(.selected),
+.rating-buttons button:hover:not(.selected) {
+  background: var(--surface-raised);
+}
+
+.step-option:focus-visible,
+.club-btn:focus-visible,
+.chip:focus-visible,
+.rating-buttons button:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
 }
 
 .step-toggle {
@@ -331,6 +376,12 @@ textarea {
 input[type="text"]::placeholder,
 textarea::placeholder {
   color: var(--text-secondary);
+}
+
+input[type="text"]:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
 }
 
 input[type="text"]:disabled,
@@ -439,6 +490,11 @@ textarea:disabled {
   background: var(--surface-raised);
 }
 
+.slider-input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 .slider-input::-webkit-slider-runnable-track {
   height: 8px;
   border-radius: var(--radius-pill);
@@ -535,8 +591,14 @@ ul.sets-list.editable-list li {
   cursor: pointer;
 }
 
+ul.sets-list.editable-list li:hover,
 ul.sets-list.editable-list li:active {
   background: var(--surface-raised);
+}
+
+ul.sets-list.editable-list li:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: -2px;
 }
 
 ul.sets-list.editable-list li .edit-hint {
@@ -553,6 +615,15 @@ ul.sets-list li button.remove-btn {
   line-height: 1;
   cursor: pointer;
   padding: 4px 8px;
+}
+
+ul.sets-list li button.remove-btn:hover {
+  opacity: 0.75;
+}
+
+ul.sets-list li button.remove-btn:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
 }
 
 ul.summary-sets li {
@@ -888,4 +959,13 @@ details.swing-thoughts summary {
   color: var(--app-bg);
   font-size: 1.4rem;
   cursor: pointer;
+}
+
+.add-thought-row button:hover {
+  filter: brightness(1.05);
+}
+
+.add-thought-row button:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
 }
