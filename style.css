@@ -71,6 +71,13 @@ h1 {
   color: var(--text-primary);
 }
 
+/* The Grind wordmark, used in place of h1 text on the home screen only. */
+.wordmark-image {
+  display: block;
+  height: 34px;
+  width: auto;
+}
+
 h2 {
   font-size: 1.05rem;
   font-weight: 700;
