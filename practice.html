@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0a1628">
 <link rel="icon" href="icons/favicon.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-<link rel="stylesheet" href="style.css?v=31">
+<link rel="stylesheet" href="style.css?v=32">
 </head>
 <body>
   <div class="app">
@@ -29,13 +29,15 @@
         <button type="button" data-rating="OK">OK</button>
         <button type="button" data-rating="Good">Good</button>
       </div>
+      <div id="thoughtReviewList"></div>
       <textarea id="setNote" placeholder="Note (optional)"></textarea>
       <button type="button" id="nextSetBtn" class="primary-button" disabled>Next Set</button>
     </div>
 
     <details class="swing-thoughts">
       <summary>Swing Thoughts (<span id="thoughtCount">0</span>)</summary>
-      <ul class="thoughts-list" id="thoughtsList"></ul>
+      <div id="thoughtsEmptyLibrary" class="hint-text hidden">No swing thoughts saved yet — add one below to start your library.</div>
+      <div id="thoughtsPicker" class="thoughts-picker"></div>
       <div class="add-thought-row">
         <input type="text" id="newThought" placeholder="e.g. Slower takeaway">
         <button type="button" id="addThoughtBtn">+</button>
@@ -43,7 +45,7 @@
     </details>
   </div>
 
-  <script src="storage.js?v=31"></script>
-  <script src="practice.js?v=31"></script>
+  <script src="storage.js?v=32"></script>
+  <script src="practice.js?v=32"></script>
 </body>
 </html>

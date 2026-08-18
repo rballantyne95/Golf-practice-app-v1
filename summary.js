@@ -41,9 +41,11 @@ function render() {
     summarySetsEl.appendChild(li);
   });
 
-  if (draft.swingThoughts.length === 0) {
+  summaryThoughtsEl.innerHTML = "";
+  const rendered = renderTriedThoughtsList(summaryThoughtsEl, draft.sets);
+  if (!rendered && draft.swingThoughts.length === 0) {
     summaryThoughtsEl.innerHTML = '<div class="empty-state">No swing thoughts recorded</div>';
-  } else {
+  } else if (!rendered) {
     const list = document.createElement("ul");
     list.className = "thoughts-list";
     draft.swingThoughts.forEach((thought) => {
@@ -56,8 +58,9 @@ function render() {
 }
 
 saveSessionBtn.addEventListener("click", () => {
+  const sessionId = Date.now().toString();
   const session = {
-    id: Date.now().toString(),
+    id: sessionId,
     date: nowIso,
     focus: normalizeFocusList(draft.focus),
     totalBalls: draft.totalBalls,
@@ -70,9 +73,26 @@ saveSessionBtn.addEventListener("click", () => {
       club: s.club || "",
       rating: s.rating,
       note: s.note,
+      swingThoughtIds: s.swingThoughtIds || [],
+      swingThoughtResults: s.swingThoughtResults || {},
     })),
     swingThoughts: draft.swingThoughts,
   };
+
+  // Only now that the session has a real id can each reviewed swing
+  // thought's result be written into its own history.
+  session.sets.forEach((set) => {
+    Object.keys(set.swingThoughtResults).forEach((thoughtId) => {
+      const r = set.swingThoughtResults[thoughtId];
+      recordSwingThoughtResult(thoughtId, set, {
+        sessionId,
+        date: nowIso,
+        result: r.result,
+        achieved: r.achieved,
+        note: r.note,
+      });
+    });
+  });
 
   const sessions = getSessions();
   sessions.unshift(session);

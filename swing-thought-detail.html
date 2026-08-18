@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swing Thought - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=32">
+</head>
+<body>
+  <div class="app">
+    <a href="swing-thoughts.html" class="back-link">&larr; Back</a>
+    <h1 id="thoughtName">Swing Thought</h1>
+    <div id="statusBadgeRow" class="thought-detail-badge"></div>
+    <div class="hint-text hidden" id="thoughtGoal"></div>
+
+    <section>
+      <div class="section-label">Overall status</div>
+      <div class="rating-buttons" id="statusOverride">
+        <button type="button" data-status="works">Works</button>
+        <button type="button" data-status="doesnt_work">Doesn't Work</button>
+        <button type="button" data-status="unsure">Unsure</button>
+      </div>
+    </section>
+
+    <div class="summary-meta">
+      <strong id="usageCount">Used 0 times</strong>
+      <span id="usageBreakdown"></span>
+    </div>
+
+    <section id="achievedSection">
+      <h2>What it has helped with</h2>
+      <div class="chip-row" id="achievedTags"></div>
+    </section>
+
+    <section>
+      <h2>History</h2>
+      <div id="historyList"></div>
+    </section>
+
+    <a href="#" id="editLink" class="secondary-button">Edit</a>
+    <button type="button" id="deleteBtn" class="danger-link">Delete</button>
+
+    <div id="deleteConfirm" class="confirm-card hidden">
+      <div class="confirm-warning">This will permanently delete this swing thought and its history. Your practice sessions themselves are not affected.</div>
+      <button type="button" id="confirmDeleteBtn" class="primary-button">Delete Swing Thought</button>
+      <button type="button" id="cancelDeleteBtn" class="secondary-button">Cancel</button>
+    </div>
+  </div>
+
+  <script src="storage.js?v=32"></script>
+  <script src="swing-thought-detail.js?v=32"></script>
+</body>
+</html>

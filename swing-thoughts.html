@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swing Thoughts - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=32">
+</head>
+<body>
+  <div class="app">
+    <a href="index.html" class="back-link">&larr; Back</a>
+    <h1>Swing Thoughts</h1>
+    <div class="hint-text">Build a library of what actually works for your swing.</div>
+
+    <div class="step-toggle" id="filterToggle">
+      <button type="button" class="step-option selected" data-filter="all">All</button>
+      <button type="button" class="step-option" data-filter="works">Works</button>
+      <button type="button" class="step-option" data-filter="doesnt_work">Doesn't Work</button>
+      <button type="button" class="step-option" data-filter="unsure">Unsure</button>
+    </div>
+
+    <a href="swing-thought-form.html" class="secondary-button">+ Add Swing Thought</a>
+
+    <div id="thoughtsContainer"></div>
+  </div>
+
+  <script src="storage.js?v=32"></script>
+  <script src="swing-thoughts.js?v=32"></script>
+</body>
+</html>

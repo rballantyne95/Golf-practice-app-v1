@@ -40,9 +40,11 @@ function render() {
     summarySetsEl.appendChild(li);
   });
 
-  if (session.swingThoughts.length === 0) {
+  summaryThoughtsEl.innerHTML = "";
+  const rendered = renderTriedThoughtsList(summaryThoughtsEl, session.sets);
+  if (!rendered && session.swingThoughts.length === 0) {
     summaryThoughtsEl.innerHTML = '<div class="empty-state">No swing thoughts recorded</div>';
-  } else {
+  } else if (!rendered) {
     const list = document.createElement("ul");
     list.className = "thoughts-list";
     session.swingThoughts.forEach((thought) => {
@@ -58,7 +60,14 @@ repeatSessionBtn.addEventListener("click", () => {
   const draft = {
     focus: normalizeFocusList(session.focus),
     totalBalls: session.totalBalls,
-    sets: session.sets.map((s) => ({ balls: s.balls, focus: s.focus, club: s.club || "", rating: null, note: "" })),
+    sets: session.sets.map((s) => ({
+      balls: s.balls,
+      focus: s.focus,
+      club: s.club || "",
+      rating: null,
+      note: "",
+      swingThoughtIds: (s.swingThoughtIds || []).slice(),
+    })),
     currentSetIndex: 0,
     swingThoughts: [],
   };

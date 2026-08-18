@@ -22,6 +22,7 @@ const DRAFT_KEY = "golfDraftSession";
 const SET_NAMES_KEY = "golfSetNames";
 const SAVED_SESSIONS_KEY = "golfSavedSessions";
 const CUSTOM_FOCUS_AREAS_KEY = "golfCustomFocusAreas";
+const SWING_THOUGHTS_KEY = "golfSwingThoughts";
 const MAX_SET_NAMES = 8;
 
 const BUILT_IN_FOCUS_AREAS = [
@@ -186,6 +187,192 @@ function formatBallFlight(ballFlight) {
   if (!ballFlight) return "Not recorded";
   const tags = Object.values(ballFlight).filter(Boolean);
   return tags.length ? tags.join(", ") : "Not recorded";
+}
+
+// ==========================================================================
+// Swing Thoughts library — a personal record of what the user has tried in
+// practice and whether it worked, independent of any one session.
+// ==========================================================================
+
+const SWING_THOUGHT_STATUSES = ["works", "doesnt_work", "unsure"];
+
+const SWING_THOUGHT_STATUS_LABELS = {
+  works: "Works",
+  doesnt_work: "Doesn't Work",
+  unsure: "Unsure",
+};
+
+// Maps a status to the existing flight-badge good/miss/(neutral) treatment
+// so status badges reuse the app's one green/amber/neutral signal system
+// instead of introducing a new color language.
+const SWING_THOUGHT_STATUS_BADGE_CLASS = {
+  works: "good",
+  doesnt_work: "miss",
+  unsure: "",
+};
+
+const SWING_THOUGHT_ACHIEVED_TAGS = [
+  "Strike",
+  "Contact",
+  "Path",
+  "Face",
+  "Speed",
+  "Tempo",
+  "Balance",
+  "Feel",
+  "Shorter backswing",
+  "Release",
+  "Posting up",
+];
+
+function getSwingThoughts() {
+  const raw = localStorage.getItem(SWING_THOUGHTS_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+function saveSwingThoughts(thoughts) {
+  localStorage.setItem(SWING_THOUGHTS_KEY, JSON.stringify(thoughts));
+}
+
+function getSwingThought(id) {
+  return getSwingThoughts().find((t) => t.id === id) || null;
+}
+
+function createSwingThought({ name, goal, notes, status }) {
+  const thoughts = getSwingThoughts();
+  const thought = {
+    id: "st_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+    name: name.trim(),
+    goal: (goal || "").trim(),
+    notes: (notes || "").trim(),
+    status: SWING_THOUGHT_STATUSES.includes(status) ? status : "unsure",
+    createdAt: new Date().toISOString(),
+    history: [],
+  };
+  thoughts.unshift(thought);
+  saveSwingThoughts(thoughts);
+  return thought;
+}
+
+function updateSwingThought(id, changes) {
+  const thoughts = getSwingThoughts();
+  const thought = thoughts.find((t) => t.id === id);
+  if (!thought) return null;
+  Object.assign(thought, changes);
+  saveSwingThoughts(thoughts);
+  return thought;
+}
+
+// Deletes the thought itself but preserves every practice session and set
+// it was ever used in — only the now-dangling reference (and any result
+// recorded against this specific thought) is removed from those sets.
+function deleteSwingThought(id) {
+  const thoughts = getSwingThoughts().filter((t) => t.id !== id);
+  saveSwingThoughts(thoughts);
+
+  const sessions = getSessions();
+  let changed = false;
+  sessions.forEach((session) => {
+    session.sets.forEach((set) => {
+      if (Array.isArray(set.swingThoughtIds) && set.swingThoughtIds.includes(id)) {
+        set.swingThoughtIds = set.swingThoughtIds.filter((tId) => tId !== id);
+        changed = true;
+      }
+      if (set.swingThoughtResults && set.swingThoughtResults[id]) {
+        delete set.swingThoughtResults[id];
+        changed = true;
+      }
+    });
+  });
+  if (changed) saveSessions(sessions);
+}
+
+// Records one use of a swing thought: appends to the thought's own history
+// (persisted immediately, so the detail page's history list is always
+// complete) and mutates the passed-in set object with the same result (the
+// caller — which owns whether that set lives on a draft or a saved session
+// — is responsible for persisting the set's own container afterward).
+function recordSwingThoughtResult(thoughtId, set, { sessionId, date, result, achieved, note }) {
+  const thoughts = getSwingThoughts();
+  const thought = thoughts.find((t) => t.id === thoughtId);
+  if (!thought) return;
+
+  const entry = {
+    sessionId: sessionId || null,
+    date,
+    club: set.club || "",
+    balls: set.balls,
+    focus: set.focus || "",
+    result: result || null,
+    achieved: Array.isArray(achieved) ? achieved : [],
+    note: (note || "").trim(),
+  };
+  thought.history.unshift(entry);
+  saveSwingThoughts(thoughts);
+
+  if (!set.swingThoughtResults) set.swingThoughtResults = {};
+  set.swingThoughtResults[thoughtId] = { result: entry.result, achieved: entry.achieved, note: entry.note };
+}
+
+function swingThoughtStats(thought) {
+  const history = thought.history || [];
+  return {
+    timesUsed: history.length,
+    positive: history.filter((h) => h.result === "worked").length,
+    negative: history.filter((h) => h.result === "didnt_work").length,
+    unsure: history.filter((h) => h.result === "unsure").length,
+  };
+}
+
+// Shows the swing thoughts actually attached to a session/draft's sets
+// (the new per-set library flow), one row per thought-per-set, with
+// whatever result was recorded. Returns false (and renders nothing) when
+// there's nothing to show, so the caller can fall back to its own empty
+// state or legacy free-text list.
+function renderTriedThoughtsList(container, sets) {
+  const thoughts = getSwingThoughts();
+  const entries = [];
+
+  sets.forEach((set) => {
+    (set.swingThoughtIds || []).forEach((id) => {
+      const thought = thoughts.find((t) => t.id === id);
+      if (!thought) return;
+      const result = set.swingThoughtResults && set.swingThoughtResults[id];
+      entries.push({
+        name: thought.name,
+        setLabel: ballsAndClubLabel(set),
+        result: result ? result.result : null,
+        note: result ? result.note : "",
+      });
+    });
+  });
+
+  if (entries.length === 0) return false;
+
+  const resultStatusMap = { worked: "works", didnt_work: "doesnt_work", unsure: "unsure" };
+
+  const list = document.createElement("ul");
+  list.className = "summary-sets";
+  entries.forEach((entry) => {
+    const li = document.createElement("li");
+    const badge = entry.result
+      ? renderStatusBadge(resultStatusMap[entry.result])
+      : '<span class="thought-pick-stat">Not reviewed</span>';
+    li.innerHTML = `
+      <div class="summary-set-title">${escapeHtml(entry.name)} &mdash; ${entry.setLabel}</div>
+      <div class="thought-history-badge">${badge}</div>
+      ${entry.note ? `<div class="summary-set-note">${escapeHtml(entry.note)}</div>` : ""}
+    `;
+    list.appendChild(li);
+  });
+  container.appendChild(list);
+  return true;
+}
+
+function renderStatusBadge(status) {
+  const cls = SWING_THOUGHT_STATUS_BADGE_CLASS[status] || "";
+  const label = SWING_THOUGHT_STATUS_LABELS[status] || "Unsure";
+  return `<span class="flight-badge${cls ? " " + cls : ""}">${escapeHtml(label)}</span>`;
 }
 
 function escapeHtml(str) {

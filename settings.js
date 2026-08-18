@@ -1,6 +1,6 @@
 const BACKUP_APP_ID = "golf-practice-app";
 const BACKUP_VERSION = 1;
-const BACKUP_KEYS = ["golfSessions", "golfSavedSessions", "golfSetNames", "golfCustomFocusAreas"];
+const BACKUP_KEYS = ["golfSessions", "golfSavedSessions", "golfSetNames", "golfCustomFocusAreas", "golfSwingThoughts"];
 
 const exportBtn = document.getElementById("exportBtn");
 const importBtn = document.getElementById("importBtn");
@@ -129,10 +129,15 @@ function summarize(data) {
   const sessions = data.golfSessions;
   const sessionCount = sessions.length;
   const totalBalls = sessions.reduce((sum, s) => sum + (s.totalBalls || 0), 0);
-  const thoughtCount = sessions.reduce(
+  // Counts both the legacy free-text per-session thoughts (older backups)
+  // and the newer swing-thought library entries, so the summary stays
+  // accurate for a backup made with either version of the app.
+  const legacyThoughtCount = sessions.reduce(
     (sum, s) => sum + (Array.isArray(s.swingThoughts) ? s.swingThoughts.length : 0),
     0
   );
+  const libraryCount = Array.isArray(data.golfSwingThoughts) ? data.golfSwingThoughts.length : 0;
+  const thoughtCount = legacyThoughtCount + libraryCount;
   return `This backup contains ${sessionCount} session${sessionCount === 1 ? "" : "s"}, ${totalBalls} ball${totalBalls === 1 ? "" : "s"} and ${thoughtCount} swing thought${thoughtCount === 1 ? "" : "s"}.`;
 }
 

@@ -124,7 +124,7 @@ parseBtn.addEventListener("click", () => {
   const draft = {
     focus: selectedFocusAreas.slice(),
     totalBalls,
-    sets: sets.map((s) => ({ balls: s.balls, focus: s.focus, club: s.club || "", rating: null, note: "" })),
+    sets: sets.map((s) => ({ balls: s.balls, focus: s.focus, club: s.club || "", rating: null, note: "", swingThoughtIds: [] })),
   };
   saveDraft(draft);
   window.location.href = "review.html";

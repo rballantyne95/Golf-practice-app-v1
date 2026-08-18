@@ -1037,3 +1037,77 @@ details.swing-thoughts summary {
   outline: 2px solid var(--text-primary);
   outline-offset: 2px;
 }
+
+/* ==========================================================================
+   Swing Thoughts — library, per-set picker, and history/review displays.
+   Reuses flight-badge for status (green/amber/neutral) and the existing
+   card/chip/rating-button patterns rather than introducing new components.
+   ========================================================================== */
+
+.thoughts-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.thought-pick-row {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.thought-pick-row:hover {
+  background: var(--surface-raised);
+}
+
+.thought-pick-row:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 2px;
+}
+
+.thought-pick-row.selected {
+  background: var(--accent-tint);
+  border-color: var(--accent);
+}
+
+.thought-pick-name {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.thought-pick-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.thought-pick-stat {
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+}
+
+.thought-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.thought-detail-badge {
+  margin-bottom: 12px;
+}
+
+.thought-history-badge {
+  margin-bottom: 6px;
+}

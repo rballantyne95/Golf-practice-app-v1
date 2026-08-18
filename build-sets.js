@@ -171,7 +171,7 @@ nextSetBtn.addEventListener("click", () => {
     return;
   }
 
-  draft.sets.push({ balls: currentBalls, focus, club: currentClub, rating: null, note: "" });
+  draft.sets.push({ balls: currentBalls, focus, club: currentClub, rating: null, note: "", swingThoughtIds: [] });
   rememberSetName(focus);
   draft.buildIndex += 1;
   saveDraft(draft);
