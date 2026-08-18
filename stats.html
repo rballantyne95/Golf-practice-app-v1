@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stats - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=32">
+</head>
+<body>
+  <div class="app">
+    <a href="index.html" class="back-link">&larr; Back</a>
+    <h1>Stats</h1>
+
+    <div class="summary-meta">
+      <strong id="totalBallsStat">0 balls hit</strong>
+      <span id="sessionCountStat">across 0 sessions</span>
+    </div>
+
+    <div class="step-toggle" id="viewToggle">
+      <button type="button" class="step-option selected" data-view="sessionFocus">By Focus</button>
+      <button type="button" class="step-option" data-view="drill">By Drill</button>
+      <button type="button" class="step-option" data-view="club">By Club</button>
+    </div>
+
+    <div id="statsContainer"></div>
+  </div>
+
+  <script src="storage.js?v=32"></script>
+  <script src="stats.js?v=32"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font-size",
+        "value": "1.1rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:09:52.528Z",
+        "reason": "pre-existing .primary-button size from the earlier user-approved dark-mode redesign; DESIGN.md's Body role prose documents button labels at 0.95-1.1rem, frontmatter just captured a single representative value"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.92rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:09:52.591Z",
+        "reason": "pre-existing ul.sessions-list .session-meta size from earlier user-approved redesign; a small/meta-text step DESIGN.md's 5 canonical roles don't separately enumerate"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.7rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:21:56.775Z",
+        "reason": "pre-existing micro-label text (focus pills); same family as the documented Label role (0.7-0.85rem in DESIGN.md prose), frontmatter only captured one representative value"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.82rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:21:56.856Z",
+        "reason": "pre-existing chip/club-button label text, same small-label family as 0.85/0.9/0.95rem below"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.85rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:21:56.918Z",
+        "reason": "pre-existing small/meta text (hints, edit-hint, rating badges); DESIGN.md's Label role prose documents this range, frontmatter only captured one point value"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.9rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:21:56.981Z",
+        "reason": "pre-existing small/meta text (field errors, stat values, section labels); same small-label family"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "0.95rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:21:57.045Z",
+        "reason": "pre-existing small body/meta text (danger-link, back-link, summary notes); within DESIGN.md's documented Body role range (0.95-1.1rem), frontmatter only captured one point value"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.2rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:21:57.105Z",
+        "reason": "pre-existing text (summary-meta value, set-focus title); within DESIGN.md's documented Title role range (1.05-1.2rem), frontmatter only captured one point value"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.4rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:21:57.165Z",
+        "reason": "icon-glyph size inside circular icon buttons (close x, add-thought +), not prose typography the type ramp governs"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "1.5rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:21:57.223Z",
+        "reason": "icon-glyph size inside the stepper's +/- circular buttons, not prose typography"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "2rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:21:57.297Z",
+        "reason": "the stepper/rating-slider numeric readout style, a smaller sibling of the Display role used for secondary metric numbers; distinct from the 4-6rem hero ball count"
+      },
+      {
+        "rule": "design-system-radius",
+        "value": "4px",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-08-13T20:21:57.358Z",
+        "reason": "intentional asymmetric rounding on the ranked horizontal bar chart (Stats), not part of the card/button rounded scale"
+      }
+    ]
+  }
+}

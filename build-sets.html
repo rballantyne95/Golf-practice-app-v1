@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build Sets - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=32">
+</head>
+<body>
+  <div class="app">
+    <button type="button" id="closeBtn" class="close-btn" aria-label="Close">&times;</button>
+    <div class="set-progress" id="setProgress">SET 1 OF 3</div>
+
+    <section>
+      <h2>Balls in this set</h2>
+      <div class="stepper">
+        <button type="button" id="decSetBalls">&minus;</button>
+        <span class="stepper-value" id="setBallsValue">5</span>
+        <button type="button" id="incSetBalls">+</button>
+      </div>
+      <div class="allocated-tracker" id="remainingHint"></div>
+    </section>
+
+    <section>
+      <h2>Club (optional)</h2>
+      <div id="clubPicker" class="club-grid"></div>
+    </section>
+
+    <section>
+      <h2>Drill/Activity</h2>
+      <div id="recentNames" class="chip-row"></div>
+      <input type="text" id="focusInput" placeholder="Drill/Activity, e.g. Start line">
+      <div id="focusError" class="field-error hidden">Enter a drill/activity for this set to continue</div>
+    </section>
+
+    <button type="button" id="nextSetBtn" class="primary-button">Next Set</button>
+
+    <section id="builtSetsSection" class="hidden">
+      <h2>Sets So Far</h2>
+      <div class="hint-text">Tap a set to edit it — sets after it will need to be rebuilt</div>
+      <ul class="sets-list editable-list" id="builtSetsList"></ul>
+    </section>
+  </div>
+
+  <script src="storage.js?v=32"></script>
+  <script src="build-sets.js?v=32"></script>
+</body>
+</html>

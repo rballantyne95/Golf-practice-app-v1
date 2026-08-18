@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-13T00:00:00Z",
+  "title": "Design System: Golf Practice",
+  "extensions": {
+    "colorMeta": {
+      "night-range-navy": {
+        "role": "neutral",
+        "displayName": "Night Range Navy",
+        "canonical": "#0b1026",
+        "tonalRamp": ["#11193b", "#1f2d6b", "#2d419a", "#3d57c7", "#6d80d5", "#9ca9e2", "#ccd2f0", "#ebeef9"]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "canonical": "#151c38"
+      },
+      "surface-raised": {
+        "role": "neutral",
+        "displayName": "Surface Raised",
+        "canonical": "#1d2647"
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "Primary Text",
+        "canonical": "#f7f8fc"
+      },
+      "text-secondary": {
+        "role": "neutral",
+        "displayName": "Secondary Text",
+        "canonical": "#98a2bc"
+      },
+      "fairway-green": {
+        "role": "primary",
+        "displayName": "Fairway Green",
+        "canonical": "#54e38e",
+        "tonalRamp": ["#0b4221", "#13763c", "#1cab56", "#28dc71", "#5de494", "#91edb7", "#c6f6d9", "#e9fbf1"]
+      },
+      "miss-amber": {
+        "role": "secondary",
+        "displayName": "Miss Amber",
+        "canonical": "#f0a857",
+        "tonalRamp": ["#462806", "#7e480b", "#b76810", "#eb881a", "#f0a552", "#f5c28a", "#fadfc2", "#fdf3e8"]
+      },
+      "border-subtle": {
+        "role": "neutral",
+        "displayName": "Border Subtle",
+        "canonical": "rgba(255, 255, 255, 0.1)"
+      }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "The in-session ball count only. The single element allowed to dominate a screen." },
+      "headline": { "displayName": "Headline", "purpose": "Screen titles, always left-aligned." },
+      "title": { "displayName": "Title", "purpose": "Section headers and the active drill/activity name." },
+      "body": { "displayName": "Body", "purpose": "List content, set summaries, notes, button labels." },
+      "label": { "displayName": "Label", "purpose": "Uppercase status chips, unit labels, focus-area pills." }
+    },
+    "shadows": [
+      { "name": "primary-button", "value": "0 2px 8px rgba(11, 16, 38, 0.35)", "purpose": "Faint lift under the main call-to-action; removed when disabled." },
+      { "name": "slider-thumb", "value": "0 2px 6px rgba(11, 16, 38, 0.5)", "purpose": "Tactile cue on the draggable rating-slider handle." }
+    ],
+    "breakpoints": []
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The single call-to-action per screen. Full width, Fairway Green fill.",
+      "html": "<button class=\"ds-btn-primary\">Start Practice</button>",
+      "css": ".ds-btn-primary { display: block; width: 100%; padding: 18px; font-size: 1.1rem; font-weight: 700; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: var(--night-range-navy, #0b1026); background: var(--fairway-green, #54e38e); border: none; border-radius: 14px; box-shadow: 0 2px 8px rgba(11, 16, 38, 0.35); transition: transform 0.1s ease; cursor: pointer; } .ds-btn-primary:hover { filter: brightness(1.03); } .ds-btn-primary:active { transform: scale(0.98); } .ds-btn-primary:focus-visible { outline: 2px solid var(--text-primary, #f7f8fc); outline-offset: 2px; } .ds-btn-primary:disabled { background: var(--surface-raised, #1d2647); color: var(--text-secondary, #98a2bc); box-shadow: none; cursor: not-allowed; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Secondary action alongside a primary button, e.g. \"View Stats\".",
+      "html": "<button class=\"ds-btn-secondary\">View Stats</button>",
+      "css": ".ds-btn-secondary { display: block; width: 100%; padding: 16px; font-size: 1rem; font-weight: 700; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: var(--text-primary, #f7f8fc); background: var(--surface, #151c38); border: 1px solid var(--border-subtle, rgba(255,255,255,0.1)); border-radius: 14px; cursor: pointer; } .ds-btn-secondary:hover { background: var(--surface-raised, #1d2647); } .ds-btn-secondary:active { background: var(--surface-raised, #1d2647); } .ds-btn-secondary:focus-visible { outline: 2px solid var(--text-primary, #f7f8fc); outline-offset: 2px; }"
+    },
+    {
+      "name": "Destructive Link",
+      "kind": "button",
+      "refersTo": "danger-link",
+      "description": "Delete Session and other destructive actions. Text-only so it never competes with the primary green action.",
+      "html": "<button class=\"ds-danger-link\">Delete Session</button>",
+      "css": ".ds-danger-link { display: block; width: 100%; padding: 10px; background: none; border: none; color: var(--miss-amber, #f0a857); font-size: 0.95rem; font-weight: 600; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; text-align: center; cursor: pointer; } .ds-danger-link:hover { text-decoration: underline; } .ds-danger-link:focus-visible { outline: 2px solid var(--miss-amber, #f0a857); outline-offset: 2px; }"
+    },
+    {
+      "name": "Chip",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Club picker, drill-name suggestions, and rating options. Resting and selected states.",
+      "html": "<div style=\"display:flex; gap:6px;\"><button class=\"ds-chip\">7i</button><button class=\"ds-chip ds-chip--selected\">9i</button></div>",
+      "css": ".ds-chip { border: 1px solid var(--border-subtle, rgba(255,255,255,0.1)); background: var(--surface, #151c38); color: var(--text-secondary, #98a2bc); font-weight: 700; font-size: 0.82rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; padding: 7px 12px; min-width: 40px; border-radius: 10px; cursor: pointer; } .ds-chip--selected { border-color: var(--fairway-green, #54e38e); background: var(--fairway-green, #54e38e); color: var(--night-range-navy, #0b1026); } .ds-chip:disabled { opacity: 0.4; cursor: not-allowed; }"
+    },
+    {
+      "name": "Session Card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "A row in the Recent Sessions / Saved Sessions list.",
+      "html": "<a class=\"ds-card\" href=\"#\"><div class=\"ds-card-date\">Aug 12, 2026</div><div class=\"ds-card-meta\">Downswing path · 30 balls · 2 sets</div></a>",
+      "css": ".ds-card { display: block; padding: 16px; background: var(--surface, #151c38); border: 1px solid var(--border-subtle, rgba(255,255,255,0.1)); border-radius: 20px; text-decoration: none; color: inherit; } .ds-card:hover { background: var(--surface-raised, #1d2647); } .ds-card-date { font-weight: 700; font-size: 1rem; color: var(--text-primary, #f7f8fc); margin-bottom: 2px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; } .ds-card-meta { color: var(--text-secondary, #98a2bc); font-size: 0.92rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }"
+    },
+    {
+      "name": "Input Field",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Text input / textarea, e.g. drill/activity name or swing thought.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"e.g. Start line\">",
+      "css": ".ds-input { width: 100%; padding: 14px; font-size: 1rem; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; border-radius: 10px; border: 1px solid var(--border-subtle, rgba(255,255,255,0.1)); background: var(--surface, #151c38); color: var(--text-primary, #f7f8fc); } .ds-input::placeholder { color: var(--text-secondary, #98a2bc); } .ds-input:focus-visible { outline: 2px solid var(--fairway-green, #54e38e); outline-offset: 1px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Range Session HUD",
+    "overview": "This is a heads-up display for the driving range, not a dashboard to admire at a desk. Every screen assumes the same reader: one hand free, standing outdoors in direct sunlight, glancing down between shots. The system is restrained, confident, and focused — quiet by default, and loud only at the one moment that earns it (the in-session ball count). It deliberately rejects the generic \"AI-generated SaaS\" look: no stacked pill shapes, no decorative glow or gradient, no ornament that isn't carrying information. Density stays low and content stays left-aligned and scannable, because a range session is read in fragments, not studied. The one exception is the hero ball count, which centers and dominates because it is the single number the reader needs to confirm at a glance, from arm's length, in bright sun.",
+    "keyCharacteristics": [
+      "A near-black navy stage with one bright green marker light, used only where it means something",
+      "Hierarchy built entirely from type — size, weight, spacing — never from decoration",
+      "Flat surfaces layered by tone, not shadow",
+      "One deliberately oversized number per session (the ball count); everything else stays modest"
+    ],
+    "rules": [
+      { "name": "The One Signal Rule", "body": "Fairway Green appears only for primary actions, current selection, and positive outcomes. It never decorates. If green shows up, it means something specific is true right now.", "section": "colors" },
+      { "name": "The Type-Only Hierarchy Rule", "body": "Hierarchy comes from size, weight, and spacing — never from added chrome. The only place scale gets dramatic is the ball count, because that is the one number worth reading from arm's length in sunlight.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces sit flat at rest. The rare shadow is a tactile cue on something being actively pressed or dragged — never a general-purpose depth or card effect.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do reserve Fairway Green exclusively for primary actions, current selection, and positive outcomes (The One Signal Rule).",
+      "Do build hierarchy with size, weight, and spacing, never with decoration.",
+      "Do left-align scannable content; reserve centering for singular focal readouts like the hero ball count.",
+      "Do keep destructive actions as plain Miss Amber text links, never styled as a button."
+    ],
+    "donts": [
+      "Don't add shadows, glow, or gradients as decoration (The Flat-By-Default Rule).",
+      "Don't introduce a second display typeface or a web font.",
+      "Don't reach for the generic \"AI-generated SaaS\" look: stacked pill shapes, glassy glow, decorative gradients.",
+      "Don't reuse Fairway Green for anything that isn't primary/selected/positive — every extra use dilutes what it signals."
+    ]
+  }
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Swing Thought - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=32">
+</head>
+<body>
+  <div class="app">
+    <a href="swing-thoughts.html" class="back-link" id="backLink">&larr; Back</a>
+    <h1 id="formTitle">Add Swing Thought</h1>
+
+    <section>
+      <div class="section-label">Swing thought</div>
+      <input type="text" id="nameInput" placeholder="e.g. Finish left">
+      <div id="nameError" class="field-error hidden">Enter a name for this swing thought</div>
+    </section>
+
+    <section>
+      <div class="section-label">What am I trying to achieve? (optional)</div>
+      <input type="text" id="goalInput" placeholder="e.g. Get through the ball more consistently">
+    </section>
+
+    <section>
+      <div class="section-label">Status</div>
+      <div class="rating-buttons" id="statusPicker">
+        <button type="button" data-status="works">Works</button>
+        <button type="button" data-status="doesnt_work">Doesn't Work</button>
+        <button type="button" data-status="unsure">Unsure</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-label">Notes (optional)</div>
+      <textarea id="notesInput" placeholder="e.g. Helps me get through the ball and improves strike."></textarea>
+    </section>
+
+    <button type="button" id="saveBtn" class="primary-button">Save</button>
+  </div>
+
+  <script src="storage.js?v=32"></script>
+  <script src="swing-thought-form.js?v=32"></script>
+</body>
+</html>

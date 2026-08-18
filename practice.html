@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Practice - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=32">
+</head>
+<body>
+  <div class="app">
+    <button type="button" id="closeBtn" class="close-btn" aria-label="Stop session">&times;</button>
+    <div class="session-focus-banner" id="sessionFocusBanner">Focus</div>
+    <div class="set-progress" id="setProgress">SET 1 OF 1</div>
+    <div class="set-balls" id="setBalls">5 BALLS</div>
+    <div class="set-focus" id="setFocus">Focus</div>
+    <div class="section-label">Club</div>
+    <div id="clubPicker" class="club-grid"></div>
+
+    <button type="button" id="completeSetBtn" class="primary-button">Complete Set</button>
+
+    <div id="ratingSection" class="hidden">
+      <h2>Rate this set</h2>
+      <div class="rating-buttons">
+        <button type="button" data-rating="Poor">Poor</button>
+        <button type="button" data-rating="OK">OK</button>
+        <button type="button" data-rating="Good">Good</button>
+      </div>
+      <div id="thoughtReviewList"></div>
+      <textarea id="setNote" placeholder="Note (optional)"></textarea>
+      <button type="button" id="nextSetBtn" class="primary-button" disabled>Next Set</button>
+    </div>
+
+    <details class="swing-thoughts">
+      <summary>Swing Thoughts (<span id="thoughtCount">0</span>)</summary>
+      <div id="thoughtsEmptyLibrary" class="hint-text hidden">No swing thoughts saved yet — add one below to start your library.</div>
+      <div id="thoughtsPicker" class="thoughts-picker"></div>
+      <div class="add-thought-row">
+        <input type="text" id="newThought" placeholder="e.g. Slower takeaway">
+        <button type="button" id="addThoughtBtn">+</button>
+      </div>
+    </details>
+  </div>
+
+  <script src="storage.js?v=32"></script>
+  <script src="practice.js?v=32"></script>
+</body>
+</html>

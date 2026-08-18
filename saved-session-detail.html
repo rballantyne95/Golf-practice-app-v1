@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saved Session - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=32">
+</head>
+<body>
+  <div class="app">
+    <a href="saved-sessions.html" class="back-link">&larr; Back</a>
+    <h1 id="sessionName">Session</h1>
+
+    <div class="summary-meta">
+      <strong id="summaryFocus">Focus</strong>
+      <span id="summaryTotalBalls">0 balls</span>
+    </div>
+
+    <section>
+      <h2>Sets</h2>
+      <ul class="summary-sets" id="summarySets"></ul>
+    </section>
+
+    <button type="button" id="startBtn" class="primary-button">Start Practice</button>
+    <button type="button" id="deleteBtn" class="danger-link">Delete Saved Session</button>
+  </div>
+
+  <script src="storage.js?v=32"></script>
+  <script src="saved-session-detail.js?v=32"></script>
+</body>
+</html>

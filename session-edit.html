@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Edit Session - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=32">
+</head>
+<body>
+  <div class="app">
+    <a href="index.html" class="back-link" id="backLink">&larr; Back</a>
+    <h1>Edit Session</h1>
+
+    <section>
+      <h2>What are you working on?</h2>
+      <div class="hint-text">Choose up to 3</div>
+      <div id="focusAreaPicker" class="club-grid"></div>
+      <div class="add-thought-row">
+        <input type="text" id="newFocusArea" placeholder="Add your own">
+        <button type="button" id="addFocusAreaBtn">+</button>
+      </div>
+      <div id="focusAreaError" class="field-error hidden">Choose or add a focus for this session</div>
+    </section>
+
+    <section>
+      <h2>Commitment to Drills</h2>
+      <div class="rating-slider" id="commitmentScale"></div>
+      <div class="scale-endpoints"><span>Low</span><span>High</span></div>
+    </section>
+
+    <section>
+      <h2>Strike Quality</h2>
+      <div class="rating-slider" id="strikeScale"></div>
+      <div class="scale-endpoints"><span>Poor</span><span>Great</span></div>
+    </section>
+
+    <section>
+      <h2>Ball Flight (optional)</h2>
+
+      <div class="hint-text">Start Direction</div>
+      <div class="rating-buttons" id="directionGroup"></div>
+
+      <div class="hint-text">Shape</div>
+      <div class="rating-buttons" id="shapeGroup"></div>
+
+      <div class="hint-text">Contact</div>
+      <div class="rating-buttons" id="contactGroup"></div>
+    </section>
+
+    <section>
+      <h2>Set Ratings</h2>
+      <div id="setRatingsList"></div>
+    </section>
+
+    <button type="button" id="saveBtn" class="primary-button">Save Changes</button>
+  </div>
+
+  <script src="storage.js?v=32"></script>
+  <script src="session-edit.js?v=32"></script>
+</body>
+</html>

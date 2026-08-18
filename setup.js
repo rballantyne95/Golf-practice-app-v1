@@ -1,0 +1,126 @@
+clearDraft();
+
+let totalBalls = 25;
+let numberOfSets = 3;
+let ballStep = 25;
+let selectedFocusAreas = [];
+
+const focusAreaPickerEl = document.getElementById("focusAreaPicker");
+const newFocusAreaInput = document.getElementById("newFocusArea");
+const addFocusAreaBtn = document.getElementById("addFocusAreaBtn");
+const focusAreaErrorEl = document.getElementById("focusAreaError");
+const totalBallsValueEl = document.getElementById("totalBallsValue");
+const decBallsBtn = document.getElementById("decBalls");
+const incBallsBtn = document.getElementById("incBalls");
+const stepOptionBtns = document.querySelectorAll(".step-option");
+const numSetsValueEl = document.getElementById("numSetsValue");
+const decSetsBtn = document.getElementById("decSets");
+const incSetsBtn = document.getElementById("incSets");
+const continueBtn = document.getElementById("continueBtn");
+const closeBtn = document.getElementById("closeBtn");
+
+closeBtn.addEventListener("click", () => {
+  clearDraft();
+  window.location.href = "index.html";
+});
+
+function renderFocusArea() {
+  renderFocusAreaPicker(focusAreaPickerEl, selectedFocusAreas, (area) => {
+    const index = selectedFocusAreas.indexOf(area);
+    if (index >= 0) {
+      selectedFocusAreas.splice(index, 1);
+    } else if (selectedFocusAreas.length < MAX_SESSION_FOCUSES) {
+      selectedFocusAreas.push(area);
+    }
+    focusAreaErrorEl.classList.add("hidden");
+    renderFocusArea();
+  });
+}
+
+addFocusAreaBtn.addEventListener("click", () => {
+  const name = newFocusAreaInput.value.trim();
+  if (!name) return;
+
+  addCustomFocusArea(name);
+  if (!selectedFocusAreas.includes(name) && selectedFocusAreas.length < MAX_SESSION_FOCUSES) {
+    selectedFocusAreas.push(name);
+  }
+  newFocusAreaInput.value = "";
+  focusAreaErrorEl.classList.add("hidden");
+  renderFocusArea();
+});
+
+function maxSets() {
+  return Math.floor(totalBalls / 5);
+}
+
+function renderTotalBalls() {
+  totalBallsValueEl.textContent = totalBalls;
+  decBallsBtn.disabled = totalBalls <= 5;
+
+  if (numberOfSets > maxSets()) {
+    numberOfSets = maxSets();
+  }
+  renderNumSets();
+}
+
+function renderNumSets() {
+  numSetsValueEl.textContent = numberOfSets;
+  decSetsBtn.disabled = numberOfSets <= 1;
+  incSetsBtn.disabled = numberOfSets >= maxSets();
+}
+
+decBallsBtn.addEventListener("click", () => {
+  if (totalBalls > 5) {
+    totalBalls = Math.max(5, totalBalls - ballStep);
+    renderTotalBalls();
+  }
+});
+
+incBallsBtn.addEventListener("click", () => {
+  totalBalls += ballStep;
+  renderTotalBalls();
+});
+
+stepOptionBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    stepOptionBtns.forEach((b) => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    ballStep = Number(btn.dataset.step);
+  });
+});
+
+decSetsBtn.addEventListener("click", () => {
+  if (numberOfSets > 1) {
+    numberOfSets -= 1;
+    renderNumSets();
+  }
+});
+
+incSetsBtn.addEventListener("click", () => {
+  if (numberOfSets < maxSets()) {
+    numberOfSets += 1;
+    renderNumSets();
+  }
+});
+
+continueBtn.addEventListener("click", () => {
+  if (selectedFocusAreas.length === 0) {
+    focusAreaErrorEl.classList.remove("hidden");
+    return;
+  }
+
+  const draft = {
+    focus: selectedFocusAreas.slice(),
+    totalBalls,
+    numberOfSets,
+    sets: [],
+    buildIndex: 0,
+  };
+  saveDraft(draft);
+  window.location.href = "build-sets.html";
+});
+
+renderTotalBalls();
+renderNumSets();
+renderFocusArea();
