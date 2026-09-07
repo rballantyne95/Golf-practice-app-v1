@@ -23,6 +23,9 @@ const SET_NAMES_KEY = "golfSetNames";
 const SAVED_SESSIONS_KEY = "golfSavedSessions";
 const CUSTOM_FOCUS_AREAS_KEY = "golfCustomFocusAreas";
 const SWING_THOUGHTS_KEY = "golfSwingThoughts";
+const SKILL_GAMES_KEY = "golfSkillGames";
+const SKILL_ATTEMPTS_KEY = "golfSkillAttempts";
+const SKILL_DRAFT_KEY = "golfSkillDraft";
 const MAX_SET_NAMES = 8;
 
 const BUILT_IN_FOCUS_AREAS = [
@@ -373,6 +376,138 @@ function renderStatusBadge(status) {
   const cls = SWING_THOUGHT_STATUS_BADGE_CLASS[status] || "";
   const label = SWING_THOUGHT_STATUS_LABELS[status] || "Unsure";
   return `<span class="flight-badge${cls ? " " + cls : ""}">${escapeHtml(label)}</span>`;
+}
+
+// ==========================================================================
+// Skill Zone — repeatable skill tests. A game TEMPLATE (the test itself) is
+// kept separate from its ATTEMPTS (each time it was played), so editing or
+// deleting a template never rewrites history, and every attempt carries its
+// own snapshot of what was actually played.
+// ==========================================================================
+
+function getSkillGames() {
+  const raw = localStorage.getItem(SKILL_GAMES_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+function saveSkillGames(games) {
+  localStorage.setItem(SKILL_GAMES_KEY, JSON.stringify(games));
+}
+
+function getSkillGame(id) {
+  return getSkillGames().find((g) => g.id === id) || null;
+}
+
+function createSkillGame({ name, sets }) {
+  const games = getSkillGames();
+  const game = {
+    id: "sg_" + Date.now().toString(36) + Math.random().toString(36).slice(2, 7),
+    name: name.trim(),
+    // Records how a set is scored. Only "count" (made X of Y balls) exists
+    // today; keeping it explicit leaves room for other scoring methods
+    // later without having to guess what old games meant.
+    scoring: "count",
+    createdAt: new Date().toISOString(),
+    sets: sets.map((s) => ({ balls: s.balls, club: s.club || "", game: s.game.trim() })),
+  };
+  games.unshift(game);
+  saveSkillGames(games);
+  return game;
+}
+
+function updateSkillGame(id, changes) {
+  const games = getSkillGames();
+  const game = games.find((g) => g.id === id);
+  if (!game) return null;
+  Object.assign(game, changes);
+  saveSkillGames(games);
+  return game;
+}
+
+// Removes the template and the attempts belonging to it. Attempts live in
+// their own key, so this never touches practice sessions or any other data.
+function deleteSkillGame(id) {
+  saveSkillGames(getSkillGames().filter((g) => g.id !== id));
+  saveSkillAttempts(getSkillAttempts().filter((a) => a.gameId !== id));
+}
+
+function getSkillAttempts() {
+  const raw = localStorage.getItem(SKILL_ATTEMPTS_KEY);
+  return raw ? JSON.parse(raw) : [];
+}
+
+function saveSkillAttempts(attempts) {
+  localStorage.setItem(SKILL_ATTEMPTS_KEY, JSON.stringify(attempts));
+}
+
+function getSkillAttempt(id) {
+  return getSkillAttempts().find((a) => a.id === id) || null;
+}
+
+// Most recent first.
+function getAttemptsForGame(gameId) {
+  return getSkillAttempts()
+    .filter((a) => a.gameId === gameId)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
+}
+
+function saveSkillAttempt(attempt) {
+  const attempts = getSkillAttempts();
+  attempts.unshift(attempt);
+  saveSkillAttempts(attempts);
+  return attempt;
+}
+
+function getSkillDraft() {
+  const raw = localStorage.getItem(SKILL_DRAFT_KEY);
+  return raw ? JSON.parse(raw) : null;
+}
+
+function saveSkillDraft(draft) {
+  localStorage.setItem(SKILL_DRAFT_KEY, JSON.stringify(draft));
+}
+
+function clearSkillDraft() {
+  localStorage.removeItem(SKILL_DRAFT_KEY);
+}
+
+function skillTotalBalls(sets) {
+  return sets.reduce((sum, s) => sum + s.balls, 0);
+}
+
+function skillPercent(score, totalBalls) {
+  return totalBalls > 0 ? Math.round((score / totalBalls) * 100) : 0;
+}
+
+// Best is ranked by percentage rather than raw score, so a template that
+// was edited to a different ball count still compares fairly.
+function skillGameStats(gameId) {
+  const attempts = getAttemptsForGame(gameId);
+  if (attempts.length === 0) {
+    return { count: 0, best: null, last: null, averagePercent: null };
+  }
+  const best = attempts.reduce((a, b) => (b.percent > a.percent ? b : a));
+  const averagePercent = Math.round(
+    attempts.reduce((sum, a) => sum + a.percent, 0) / attempts.length
+  );
+  return { count: attempts.length, best, last: attempts[0], averagePercent };
+}
+
+function formatScore(score, total) {
+  return `${score} / ${total}`;
+}
+
+function formatRelativeDate(isoString) {
+  const then = new Date(isoString);
+  const startOfDay = (d) => new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  const days = Math.round((startOfDay(new Date()) - startOfDay(then)) / 86400000);
+
+  if (days <= 0) return "Today";
+  if (days === 1) return "Yesterday";
+  if (days < 7) return `${days} days ago`;
+  if (days < 14) return "Last week";
+  if (days < 60) return `${Math.floor(days / 7)} weeks ago`;
+  return formatDate(isoString);
 }
 
 function escapeHtml(str) {

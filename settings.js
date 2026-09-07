@@ -1,6 +1,14 @@
 const BACKUP_APP_ID = "golf-practice-app";
 const BACKUP_VERSION = 1;
-const BACKUP_KEYS = ["golfSessions", "golfSavedSessions", "golfSetNames", "golfCustomFocusAreas", "golfSwingThoughts"];
+const BACKUP_KEYS = [
+  "golfSessions",
+  "golfSavedSessions",
+  "golfSetNames",
+  "golfCustomFocusAreas",
+  "golfSwingThoughts",
+  "golfSkillGames",
+  "golfSkillAttempts",
+];
 
 const exportBtn = document.getElementById("exportBtn");
 const importBtn = document.getElementById("importBtn");
@@ -138,7 +146,17 @@ function summarize(data) {
   );
   const libraryCount = Array.isArray(data.golfSwingThoughts) ? data.golfSwingThoughts.length : 0;
   const thoughtCount = legacyThoughtCount + libraryCount;
-  return `This backup contains ${sessionCount} session${sessionCount === 1 ? "" : "s"}, ${totalBalls} ball${totalBalls === 1 ? "" : "s"} and ${thoughtCount} swing thought${thoughtCount === 1 ? "" : "s"}.`;
+  let summary = `This backup contains ${sessionCount} session${sessionCount === 1 ? "" : "s"}, ${totalBalls} ball${totalBalls === 1 ? "" : "s"} and ${thoughtCount} swing thought${thoughtCount === 1 ? "" : "s"}.`;
+
+  // Only mentioned when there is Skill Zone data, so backups made before
+  // that feature existed don't read as if something is missing.
+  const gameCount = Array.isArray(data.golfSkillGames) ? data.golfSkillGames.length : 0;
+  const attemptCount = Array.isArray(data.golfSkillAttempts) ? data.golfSkillAttempts.length : 0;
+  if (gameCount > 0 || attemptCount > 0) {
+    summary += ` It also includes ${gameCount} skill game${gameCount === 1 ? "" : "s"} and ${attemptCount} recorded attempt${attemptCount === 1 ? "" : "s"}.`;
+  }
+
+  return summary;
 }
 
 cancelRestoreBtn.addEventListener("click", () => {

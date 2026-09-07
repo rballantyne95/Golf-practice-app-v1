@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Game Result - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=33">
+</head>
+<body>
+  <div class="app">
+    <div class="set-progress">Skill game complete</div>
+    <h1 id="gameName">Skill Game</h1>
+
+    <div class="score-hero">
+      <span class="score-hero-value" id="totalScore"></span>
+      <span class="score-hero-percent" id="totalPercent"></span>
+    </div>
+
+    <section>
+      <h2>Set Results</h2>
+      <ul class="summary-sets" id="setResults"></ul>
+    </section>
+
+    <a href="skill-zone.html" id="doneBtn" class="primary-button">Done</a>
+  </div>
+
+  <script src="storage.js?v=33"></script>
+  <script src="skill-result.js?v=33"></script>
+</body>
+</html>

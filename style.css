@@ -1111,3 +1111,127 @@ details.swing-thoughts summary {
 .thought-history-badge {
   margin-bottom: 6px;
 }
+
+/* ==========================================================================
+   Skill Zone — scores carry the hierarchy here, so the numbers are set
+   large and the supporting labels stay quiet. Everything else reuses the
+   existing stepper, chip, card and list components.
+   ========================================================================== */
+
+.score-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.score-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.score-stat-value {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.score-stat-label {
+  margin-top: 2px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* Inside a list card the stats sit tighter and stop at the card edge. */
+ul.sessions-list li .score-stats {
+  gap: var(--space-3);
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.score-stepper {
+  margin-bottom: var(--space-1);
+}
+
+.score-stepper .stepper-value {
+  min-width: 90px;
+  font-size: 3.2rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.score-total {
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+}
+
+.score-quick-pick {
+  justify-content: center;
+}
+
+.score-hero {
+  text-align: center;
+  margin: var(--space-2) 0 var(--space-4);
+}
+
+.score-hero-value {
+  display: block;
+  font-size: clamp(3rem, 16vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.score-hero-percent {
+  display: block;
+  margin-top: 8px;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.attempt-score {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.skill-set-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: var(--space-2);
+}
+
+.remove-set-btn {
+  background: none;
+  border: none;
+  padding: 4px 0;
+  color: var(--amber);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.remove-set-btn:hover {
+  text-decoration: underline;
+}
+
+.remove-set-btn:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}

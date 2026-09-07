@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Game - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=33">
+</head>
+<body>
+  <div class="app">
+    <a href="skill-zone.html" class="back-link" id="backLink">&larr; Back</a>
+    <h1 id="formTitle">Create Skill Game</h1>
+
+    <section>
+      <div class="section-label">Skill game name</div>
+      <input type="text" id="nameInput" placeholder="e.g. Driver Accuracy">
+      <div id="nameError" class="field-error hidden">Give this skill game a name</div>
+    </section>
+
+    <section>
+      <h2>Sets</h2>
+      <div id="setsList"></div>
+      <button type="button" id="addSetBtn" class="secondary-button">+ Add Set</button>
+    </section>
+
+    <div class="allocated-tracker" id="totalTracker"></div>
+
+    <button type="button" id="saveBtn" class="primary-button">Save Skill Game</button>
+  </div>
+
+  <script src="storage.js?v=33"></script>
+  <script src="skill-game-form.js?v=33"></script>
+</body>
+</html>

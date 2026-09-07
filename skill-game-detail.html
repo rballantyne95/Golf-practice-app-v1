@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skill Game - Golf Practice</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a1628">
+<link rel="icon" href="icons/favicon.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="style.css?v=33">
+</head>
+<body>
+  <div class="app">
+    <a href="skill-zone.html" class="back-link">&larr; Back</a>
+    <h1 id="gameName">Skill Game</h1>
+
+    <div class="summary-meta">
+      <strong id="gameTotals">0 balls · 0 sets</strong>
+    </div>
+
+    <div id="gameStats"></div>
+
+    <button type="button" id="startBtn" class="primary-button">Start Skill Game</button>
+
+    <section>
+      <h2>Sets</h2>
+      <ul class="summary-sets" id="gameSets"></ul>
+    </section>
+
+    <section>
+      <h2>History</h2>
+      <div id="historyList"></div>
+    </section>
+
+    <a href="#" id="editLink" class="secondary-button">Edit</a>
+    <button type="button" id="deleteBtn" class="danger-link">Delete Skill Game</button>
+
+    <div id="deleteConfirm" class="confirm-card hidden">
+      <div class="confirm-warning" id="deleteWarning"></div>
+      <button type="button" id="confirmDeleteBtn" class="primary-button">Delete Skill Game</button>
+      <button type="button" id="cancelDeleteBtn" class="secondary-button">Cancel</button>
+    </div>
+  </div>
+
+  <script src="storage.js?v=33"></script>
+  <script src="skill-game-detail.js?v=33"></script>
+</body>
+</html>
