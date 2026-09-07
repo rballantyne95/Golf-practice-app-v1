@@ -110,6 +110,15 @@
         ],
         "createdAt": "2026-08-13T20:21:57.358Z",
         "reason": "intentional asymmetric rounding on the ranked horizontal bar chart (Stats), not part of the card/button rounded scale"
+      },
+      {
+        "rule": "design-system-font-size",
+        "value": "3rem",
+        "files": [
+          "style.css"
+        ],
+        "createdAt": "2026-09-07T22:17:11.456Z",
+        "reason": "Display-role floor for the skill-game result hero. The documented Display step (clamp(4rem, 20vw, 6rem)) is sized for the 2-3 digit ball count; this readout is a fraction ('21 / 30'), so the same role needs a smaller floor to fit a phone width. Same family as the approved 2rem stepper readout."
       }
     ]
   }

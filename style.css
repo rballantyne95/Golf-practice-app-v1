@@ -1131,7 +1131,7 @@ details.swing-thoughts summary {
 }
 
 .score-stat-value {
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 800;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
@@ -1139,7 +1139,7 @@ details.swing-thoughts summary {
 
 .score-stat-label {
   margin-top: 2px;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -1157,11 +1157,11 @@ ul.sessions-list li .score-stats {
   margin-bottom: var(--space-1);
 }
 
+/* Wider than the practice stepper only because a score can be two digits.
+   The size stays the standard stepper readout: on this screen the ball
+   count is the one number allowed to dominate. */
 .score-stepper .stepper-value {
   min-width: 90px;
-  font-size: 3.2rem;
-  line-height: 1;
-  letter-spacing: -0.02em;
 }
 
 .score-total {
@@ -1196,7 +1196,7 @@ ul.sessions-list li .score-stats {
 .score-hero-percent {
   display: block;
   margin-top: 8px;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   font-weight: 800;
   color: var(--accent);
   font-variant-numeric: tabular-nums;
